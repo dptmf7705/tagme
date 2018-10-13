@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "315392754761",
+    "firebase_url": "https://tagme-695ad.firebaseio.com",
+    "project_id": "tagme-695ad",
+    "storage_bucket": "tagme-695ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315392754761:android:5d6f78efab142b87",
+        "android_client_info": {
+          "package_name": "com.dankook.tagme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315392754761-45copqq131hjj6g1silapi1jatu07tb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUgfAnwfJdoaKc5ZCjbFmPfxrJBF99Bj0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

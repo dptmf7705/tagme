@@ -3,8 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="mint">#2ac1bc</color>
+    <color name="colorMint">#2ac1bc</color>
     <color name="underbarColor">#d8d8d8</color>
-    <color name="white">#ffffff</color>
-    <color name="grey">#dcdcdc</color>
+    <color name="colorGrey">#dcdcdc</color>
+    <color name="colorMainBlue">#5B9BD5</color>
+    <color name="colorAccentBlue">#4490C4</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBackgroundGray">#F2F2F2</color>
+    <color name="colorDividerGray">#E0E0E0</color>
+    <color name="colorShadow">#781e1e1e</color>
+    <color name="colorTransGray">#b87f7f7f</color>
 </resources>
