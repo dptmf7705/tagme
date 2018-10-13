@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:gravity="center"
+    tools:context=".LoginActivity">
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+
+    <EditText
+        android:id="@+id/etxt_id"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="20dp"
+        android:textSize="13sp"
+        android:hint="아이디 또는 이메일" />
+
+    <EditText
+        android:id="@+id/etxt_password"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:inputType="textPassword"
+        android:layout_marginBottom="20dp"
+        android:textSize="13sp"
+        android:hint="비밀번호" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@color/mint"
+        android:textColor="@color/white"
+        android:text="로그인" />
+
+    <Button
+        android:id="@+id/btn_find"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:textColor="@color/grey"
+        android:text="아이디/비밀번호 찾기" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:textColor="@color/grey"
+            android:text="혹시, Tagme가 처음이신가요?"/>
+
+        <Button
+            android:id="@+id/btn_join"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@color/white"
+            android:text="@string/join" />
+    </LinearLayout>
+
+</LinearLayout>
