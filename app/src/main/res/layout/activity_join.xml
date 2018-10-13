@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.main.JoinActivity"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etxt_joinId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textSize="13sp"
+                android:inputType="textPersonName"
+                android:hint="아이디" />
+
+            <Button
+                android:id="@+id/btn_dupCheck"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:textSize="13sp"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorMint"
+                android:text="중복확인" />
+
+        </LinearLayout>
+        <EditText
+            android:id="@+id/etxt_joinPassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textSize="13sp"
+            android:hint="비밀번호"
+            android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/etxt_joinPasswordCheck"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textSize="13sp"
+            android:hint="비밀번호 확인"
+            android:inputType="textPassword"/>
+
+        <EditText
+            android:id="@+id/etxt_name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="20dp"
+            android:textSize="13sp"
+            android:hint="이름" />
+
+        <EditText
+            android:id="@+id/etxt_joinPhone"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textSize="13sp"
+            android:hint="010-1234-5678"
+            android:inputType="phone"/>
+
+        <EditText
+            android:id="@+id/etxt_joinAddr"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textSize="13sp"
+            android:hint="주소"
+            android:inputType="textPostalAddress" />
+
+        <Button
+            android:id="@+id/btn_joinFinish"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorMint"
+            android:text="가입하기" />
+
+    </LinearLayout>
+
+</layout>

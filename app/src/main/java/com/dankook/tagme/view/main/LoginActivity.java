@@ -1,5 +1,6 @@
 package com.dankook.tagme.view.main;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,25 +21,28 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initView();
     }
 
     private void initView(){
         binding.btnFind.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //아이디 or 비밀번호 찾는 액티비 호출
+                //TODO.아이디 or 비밀번호 찾는 액티비 호출
             }
         });
         binding.btnJoin.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //가입 액티비티 호출
+                Intent intent = new Intent(getApplicationContext(), JoinActivity.class);
+                startActivity(intent);
             }
         });
         binding.btnLogin.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //로그인 확인후 액티비티 전환
+                //TODO. 로그인 확인후 액티비티 전환
                 String id = binding.etxtId.getText().toString();
                 String password = binding.etxtPassword.getText().toString();
             }
