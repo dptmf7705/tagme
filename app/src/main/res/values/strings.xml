@@ -1,3 +1,32 @@
 <resources>
-    <string name="app_name">tagme</string>
+    <string name="app_name">태그미</string>
+    <string name="app_name_eng">tagme</string>
+    <string-array name="food_category_list">
+        <item>전체</item>
+        <item>한식</item>
+        <item>중식</item>
+        <item>일식·돈까스</item>
+        <item>치킨</item>
+        <item>피자</item>
+        <item>도시락</item>
+        <item>패스트푸드</item>
+        <item>분식</item>
+        <item>카페·디저트</item>
+    </string-array>
+    <string-array name="list_filter_mode">
+        <item>거리순</item>
+        <item>평점순</item>
+    </string-array>
+    <string-array name="drawer_list_menu">
+        <item>공지사항</item>
+        <item>이벤트</item>
+        <item>문의</item>
+        <item>업데이트</item>
+        <item>고객센터</item>
+    </string-array>
+    <string-array name="drawer_gird_menu">
+        <item>포인트</item>
+        <item>쿠폰</item>
+        <item>결제내역</item>
+    </string-array>
 </resources>

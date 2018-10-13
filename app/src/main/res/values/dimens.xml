@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- text size -->
+    <dimen name="text_size_main">16sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_ultra_small">8sp</dimen>
+    <dimen name="text_size_ultra_large">24sp</dimen>
+
+    <!-- padding -->
+    <dimen name="padding_main">16dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_ultra_small">4dp</dimen>
+
+    <!-- image button size -->
+    <dimen name="button_size_main">24dp</dimen>
+    <dimen name="button_size_large">28dp</dimen>
+    <dimen name="button_size_ultra_large">32dp</dimen>
+    <dimen name="button_size_small">16dp</dimen>
+
+    <!-- image size -->
+    <dimen name="store_image_width">64dp</dimen>
+    <dimen name="store_image_height">48dp</dimen>
+
+    <!-- drawer menu -->
+    <dimen name="drawer_menu_frame">320dp</dimen>
+    <dimen name="drawer_list_menu_height">60dp</dimen>
+    <dimen name="drawer_grid_menu_size">120dp</dimen>
+
+    <!-- tab -->
+    <dimen name="tab_layout_size">40dp</dimen>
+    <dimen name="tab_divider_size">4dp</dimen>
+
+</resources>
