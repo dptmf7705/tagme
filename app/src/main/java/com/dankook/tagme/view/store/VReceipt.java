@@ -2,6 +2,7 @@ package com.dankook.tagme.view.store;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 
 import com.dankook.tagme.R;
 
@@ -11,5 +12,7 @@ public class VReceipt extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt);
+
+        Button btn = findViewById(R.id.button);
     }
 }
