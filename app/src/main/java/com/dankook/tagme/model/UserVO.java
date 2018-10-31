@@ -1,4 +1,4 @@
-package com.dankook.tagme.vo;
+package com.dankook.tagme.model;
 
 public class UserVO {
     private int usr_key;

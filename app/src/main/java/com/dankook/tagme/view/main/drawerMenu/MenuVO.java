@@ -1,4 +1,4 @@
-package com.dankook.tagme.view.main;
+package com.dankook.tagme.view.main.drawerMenu;
 
 public class MenuVO {
     private String menuName;

@@ -18,9 +18,13 @@ public interface BaseAdapterContract {
 
         T getItem(int position);
 
+        List<T> getItemList();
+
+        void updateItems(List<T> items);
+
         void addItems(List<T> items);
 
-        void addItems(int position, List<T> items);
+        void addItem(T item);
 
         void clearItems();
     }

@@ -1,4 +1,4 @@
-package com.dankook.tagme.vo;
+package com.dankook.tagme.model;
 
 public class LoginVO {
     public boolean result;

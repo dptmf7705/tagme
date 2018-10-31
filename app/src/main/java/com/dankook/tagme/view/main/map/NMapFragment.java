@@ -1,4 +1,4 @@
-package com.dankook.tagme.view.main;
+package com.dankook.tagme.view.main.map;
 
 import android.os.Bundle;
 

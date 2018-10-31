@@ -1,4 +1,4 @@
-package com.dankook.tagme.view.main;
+package com.dankook.tagme.view.launch;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,13 +13,14 @@ import com.dankook.tagme.data.remote.RetrofitApi;
 import com.dankook.tagme.data.remote.RetrofitClient;
 import com.dankook.tagme.databinding.ActivityLoginBinding;
 import com.dankook.tagme.view.BaseActivity;
-import com.dankook.tagme.vo.LoginVO;
+import com.dankook.tagme.view.main.MainActivity;
+import com.dankook.tagme.model.LoginVO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements MainContract.View {
+public class LoginActivity extends BaseActivity<ActivityLoginBinding>{
 
     public static final boolean LOGIN_SUCCESS = true;
     public static final boolean LOGIN_FAIL = false;

@@ -4,5 +4,6 @@ public interface BasePresenter {
 
     void onViewCreated();
 
-    void detachView();
+    void onViewDetached();
+
 }

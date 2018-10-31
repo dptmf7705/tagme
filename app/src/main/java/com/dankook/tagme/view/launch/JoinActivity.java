@@ -1,4 +1,4 @@
-package com.dankook.tagme.view.main;
+package com.dankook.tagme.view.launch;
 
 import android.content.Context;
 import android.content.Intent;

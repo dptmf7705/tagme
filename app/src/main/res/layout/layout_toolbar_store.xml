@@ -6,7 +6,7 @@
         android:id="@+id/layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorMainBlue"
+        android:background="@android:color/transparent"
         app:contentInsetStart="0dp"
         app:contentInsetLeft="0dp">
 
@@ -23,17 +23,19 @@
                 android:layout_alignParentLeft="true"
                 style="@style/mainImageButton"/>
 
-            <ImageView
-                android:id="@+id/iv_center"
+            <TextView
+                android:id="@+id/tv_center"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_size_large"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                style="@style/baseImageStyle"/>
+                android:textSize="@dimen/text_size_main"
+                android:textColor="@color/colorWhite"/>
 
             <ImageButton
-                android:id="@+id/btn_right"
+                android:id="@+id/btn_like"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:src="@drawable/btn_like_off"
                 style="@style/mainImageButton"/>
 
         </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.dankook.tagme.view.main;
+package com.dankook.tagme.view.main.drawerMenu;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -14,7 +14,8 @@ import com.dankook.tagme.databinding.LayoutDrawerGridItemBinding;
 
 import java.util.List;
 
-class GridMenuAdapter extends BaseRecyclerViewAdapter<MenuVO, GridMenuAdapter.GridMenuViewHolder> {
+public class GridMenuAdapter extends BaseRecyclerViewAdapter<MenuVO, GridMenuAdapter.GridMenuViewHolder> {
+
     public GridMenuAdapter(Context context, List<MenuVO> list){
         super(context, list);
     }

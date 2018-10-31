@@ -23,18 +23,33 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.launch.SplashActivity">
 
-        </activity>
-        <activity android:name=".view.main.LoginActivity">
+            <!-- 앱 첫 실행화면 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".view.main.MainActivity" />
-        <activity android:name=".view.main.JoinActivity">
 
+            <!-- Firebase dynamic Link 처리 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <!-- http://tagme.com 또는 https://tagme.com 으로 실행되는 url 처리 -->
+                <data
+                    android:host="tagme.com"
+                    android:scheme="http"/>
+                <data
+                    android:host="tagme.com"
+                    android:scheme="https"/>
+
+            </intent-filter>
         </activity>
+        <activity android:name=".view.launch.LoginActivity"/>
+        <activity android:name=".view.main.MainActivity" />
+        <activity android:name=".view.launch.JoinActivity"/>
+        <activity android:name=".view.store.storeDetail.StoreDetailActivity"/>
+
     </application>
 
 </manifest>

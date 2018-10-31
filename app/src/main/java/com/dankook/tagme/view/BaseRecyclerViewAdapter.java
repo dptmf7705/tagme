@@ -4,10 +4,13 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.dankook.tagme.view.listener.OnItemClickListener;
+import com.dankook.tagme.view.listener.OnItemLongClickListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements BaseAdapterContract.View, BaseAdapterContract.Model<T> {
     protected List<T> itemList;
     protected OnItemClickListener onItemClickListener;
     protected OnItemLongClickListener onItemLongClickListener;
@@ -40,6 +43,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
         return this.itemList.size();
     }
 
+    @Override
     public T getItem(int position){
         if(this.itemList == null){
             return null;
@@ -48,6 +52,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
         return this.itemList.get(position);
     }
 
+    @Override
     public List<T> getItemList(){
         if(this.itemList == null){
             return null;
@@ -59,6 +64,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
     /**
      * item list 전체 수정
      * */
+    @Override
     public void updateItems(List<T> items){
         if(this.itemList == null){
             itemList = new ArrayList<>();
@@ -87,6 +93,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
      * 맨 처음 item list 초기화 또는 ,
      * item list 마지막 position 뒤에 items 추가
      * */
+    @Override
     public void addItems(List<T> items){
         if (this.itemList == null) {
             this.itemList = items;
@@ -115,6 +122,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
     /**
      * item list 마지막 position 뒤에 item 추가
      * */
+    @Override
     public void addItem(T item){
         if (this.itemList == null) {
             this.itemList = new ArrayList<>();
@@ -143,6 +151,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
     /**
      * item list 전체 삭제
      * */
+    @Override
     public void clearItems(){
         if(itemList != null){
             itemList.clear();
@@ -168,7 +177,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
             public void onClick(View view) {
 
                 if(onItemClickListener != null) {
-                    onItemClickListener.onItemClick(holder.itemView, position);
+                    onItemClickListener.onItemClick(position);
                 }
 
             }
@@ -179,7 +188,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
             public boolean onLongClick(View view) {
 
                 if(onItemLongClickListener != null){
-                    onItemLongClickListener.onItemLongClick(holder.itemView, position);
+                    onItemLongClickListener.onItemLongClick(position);
                 }
 
                 return false;
@@ -191,22 +200,14 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
 
     protected abstract void onBindView(H holder, int position);
 
+    @Override
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
 
+    @Override
     public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener){
         this.onItemLongClickListener = onItemLongClickListener;
-    }
-
-    public interface OnItemClickListener{
-
-        void onItemClick(View view, int position);
-    }
-
-    public interface OnItemLongClickListener{
-
-        void onItemLongClick(View view, int position);
     }
 
 }
