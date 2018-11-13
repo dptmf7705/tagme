@@ -31,7 +31,7 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
     public static final String EXTRA_TABLE_NUMBER = "EXTRA_TABLE_NUMBER";
 
     private boolean isDynamicLink;
-    private String storeKey;
+    private int storeKey;
     private String tableNumber;
 
     private StoreDetailPresenter presenter;
@@ -47,7 +47,7 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
         if(isDynamicLink){
             tableNumber = intent.getStringExtra(EXTRA_TABLE_NUMBER);
         }
-        storeKey = intent.getStringExtra(EXTRA_STORE_KEY);
+        storeKey = intent.getIntExtra(EXTRA_STORE_KEY, 0);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
     @Override
     public void onStoreDetailDataLoaded(Store store) {
         binding.toolbar.tvCenter.setText(store.getStoreName());
-        GlideUtil.loadImage(binding.ivAppbarMain, store.getMainImageUrl());
+        GlideUtil.loadImage(binding.ivAppbarMain, store.getStoreImagePath());
     }
 
     private Uri getStoreDeepLink(String tableNumber){

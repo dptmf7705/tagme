@@ -3,6 +3,8 @@ package com.dankook.tagme.data.source;
 import com.dankook.tagme.data.remote.RetrofitApi;
 import com.dankook.tagme.data.remote.RetrofitClient;
 import com.dankook.tagme.data.remote.StoreDetailRequest;
+import com.dankook.tagme.data.remote.StoreListRequest;
+import com.dankook.tagme.model.Category;
 import com.dankook.tagme.model.Store;
 
 import java.util.List;
@@ -24,9 +26,24 @@ public class StoreRemoteDataSource implements StoreDataSource {
     }
 
     @Override
-    public Observable<List<Store>> getStores() {
+    public Observable<List<Category>> getCategories() {
         return RetrofitClient.getClient().create(RetrofitApi.class)
-                .getStores()
+                .getCategories()
+                .subscribeOn(Schedulers.newThread())
+                .map(response -> {
+                    Category category = new Category();
+                    category.setCategoryKey(0);
+                    category.setCategoryName("all");
+                    category.setCategoryNameKor("전체");
+                    response.add(0, category);
+                    return response;
+                });
+    }
+
+    @Override
+    public Observable<List<Store>> getStores(StoreListRequest request) {
+        return RetrofitClient.getClient().create(RetrofitApi.class)
+                .getStores(request)
                 .subscribeOn(Schedulers.newThread());
     }
 

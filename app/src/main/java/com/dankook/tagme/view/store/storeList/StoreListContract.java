@@ -9,7 +9,7 @@ public interface StoreListContract {
 
     interface View extends BaseView<Presenter> {
 
-        void startStoreDetailActivity(String storeKey);
+        void startStoreDetailActivity(int storeKey);
     }
 
     interface Presenter extends BasePresenter {

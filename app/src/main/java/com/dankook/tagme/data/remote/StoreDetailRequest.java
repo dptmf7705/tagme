@@ -4,17 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class StoreDetailRequest {
 
-    @SerializedName("store_key") private String storeKey;
+    @SerializedName("store_key") private int storeKey;
 
-    public StoreDetailRequest(String storeKey) {
+    public StoreDetailRequest(int storeKey) {
         this.storeKey = storeKey;
     }
 
-    public String getStoreKey() {
+    public int getStoreKey() {
         return storeKey;
     }
 
-    public void setStoreKey(String storeKey) {
+    public void setStoreKey(int storeKey) {
         this.storeKey = storeKey;
     }
 }

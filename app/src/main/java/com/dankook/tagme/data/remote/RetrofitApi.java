@@ -1,6 +1,7 @@
 package com.dankook.tagme.data.remote;
 
 
+import com.dankook.tagme.model.Category;
 import com.dankook.tagme.model.LoginVO;
 import com.dankook.tagme.model.Store;
 import com.dankook.tagme.model.UserVO;
@@ -34,9 +35,13 @@ public interface RetrofitApi {
     @GET("user/duplication")
     Call<ResponseBody> duplication(@Query("user_id") String userId);
 
+    // 카테고리 목록 조회
+    @GET("store/getCategoryList")
+    Observable<List<Category>> getCategories();
+
     // 가게 목록 조회
     @POST("store/selectStoreList")
-    Observable<List<Store>> getStores();
+    Observable<List<Store>> getStores(@Body StoreListRequest request);
 
     // 가게 상세정보 조회
     @POST("store/selectStore")

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.dankook.tagme.data.remote.StoreDetailRequest;
 import com.dankook.tagme.data.source.StoreRepository;
+import com.dankook.tagme.mapper.RequestMapper;
 import com.dankook.tagme.model.Store;
 import com.dankook.tagme.model.StoreMenu;
 import com.dankook.tagme.view.BaseAdapterContract;
@@ -24,9 +25,9 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
     private BaseAdapterContract.Model<StoreMenu> adapterModel;
     private StoreRepository repository;
 
-    private final String storeKey;
+    private final int storeKey;
 
-    public StoreDetailPresenter(StoreDetailContract.View view, StoreRepository repository, String storeKey){
+    public StoreDetailPresenter(StoreDetailContract.View view, StoreRepository repository, int storeKey){
         this.view = view;
         this.repository = repository;
         this.storeKey = storeKey;
@@ -51,7 +52,7 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
     @Override
     public void loadItems() {
 
-        repository.getStore(new StoreDetailRequest(storeKey))
+        repository.getStore(RequestMapper.storeDetailRequestMapping(storeKey))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(store -> {
                     view.onStoreDetailDataLoaded(store);
@@ -59,7 +60,7 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
                     for(int i = 0 ; i < 6 ; i++) {
                         StoreMenu menu = new StoreMenu();
                         menu.setMenuName("메뉴" + (i+1));
-                        menu.setMenuImageUrl(store.getMainImageUrl());
+                        menu.setMenuImageUrl(store.getStoreImagePath());
                         menuList.add(menu);
                     }
                     adapterModel.addItems(menuList);
