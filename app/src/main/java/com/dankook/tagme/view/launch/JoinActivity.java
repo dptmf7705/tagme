@@ -52,11 +52,11 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
                 if(idDuplication == false &&
                         binding.etxtJoinPassword.getText().toString().equals(binding.etxtJoinPasswordCheck.getText().toString())){
 
-//                    userVO.setUsr_id(binding.etxtJoinId.getText().toString());
-//                    userVO.setUsr_password(binding.etxtJoinPassword.getText().toString());
-//                    userVO.setUsr_name(binding.etxtName.getText().toString());
-//                    userVO.setUsr_phone(binding.etxtJoinPhone.getText().toString());
-//                    userVO.setUsr_addr(binding.etxtJoinAddr.getText().toString());
+//                    userVO.setUser_id(binding.etxtJoinId.getText().toString());
+//                    userVO.setUser_password(binding.etxtJoinPassword.getText().toString());
+//                    userVO.setUser_name(binding.etxtName.getText().toString());
+//                    userVO.setUser_phone(binding.etxtJoinPhone.getText().toString());
+//                    userVO.setUser_address(binding.etxtJoinAddr.getText().toString());
 
                     RetrofitApi request = RetrofitClient.getClient().create(RetrofitApi.class);
                     Call<Void> call = request.join(

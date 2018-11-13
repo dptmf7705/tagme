@@ -1,59 +1,58 @@
 package com.dankook.tagme.model;
 
 public class UserVO {
-    private int usr_key;
-    private String usr_id;
-    private String usr_password;
-    private String usr_name;
-    private String usr_phone;
-    private String usr_addr;
+    private int user_key;
+    private String user_id;
+    private String user_password;
+    private String user_name;
+    private String user_phone;
+    private String user_address;
 
-    public void setUsr_key(int usr_key) {
-        this.usr_key = usr_key;
+    public int getUser_key() {
+        return user_key;
     }
 
-    public void setUsr_id(String usr_id) {
-        this.usr_id = usr_id;
+    public void setUser_key(int user_key) {
+        this.user_key = user_key;
     }
 
-    public void setUsr_password(String usr_password) {
-        this.usr_password = usr_password;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUsr_name(String usr_name) {
-        this.usr_name = usr_name;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public void setUsr_phone(String usr_phone) {
-        this.usr_phone = usr_phone;
+    public String getUser_password() {
+        return user_password;
     }
 
-    public void setUsr_addr(String usr_addr) {
-        this.usr_addr = usr_addr;
+    public void setUser_password(String user_password) {
+        this.user_password = user_password;
     }
 
-
-    public int getUsr_key() {
-        return usr_key;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public String getUsr_id() {
-        return usr_id;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public String getUsr_password() {
-        return usr_password;
+    public String getUser_phone() {
+        return user_phone;
     }
 
-    public String getUsr_name() {
-        return usr_name;
+    public void setUser_phone(String user_phone) {
+        this.user_phone = user_phone;
     }
 
-    public String getUsr_phone() {
-        return usr_phone;
+    public String getUser_address() {
+        return user_address;
     }
 
-    public String getUsr_addr() {
-        return usr_addr;
+    public void setUser_address(String user_address) {
+        this.user_address = user_address;
     }
 }

@@ -18,21 +18,21 @@ import retrofit2.http.Query;
 public interface RetrofitApi {
 
     @GET("user/login")
-    Call<LoginVO> login(@Query("usr_id") String userId,
-                        @Query("usr_password") String userPassword);
+    Call<LoginVO> login(@Query("user_id") String userId,
+                        @Query("user_password") String userPassword);
 
     @GET("user/join")
     Call<Void> join(@Body UserVO userVO);
 
     @POST("user/join")
-    Call<Void> join(@Query("usr_id") String userId,
-                    @Query("usr_password") String userPassword,
-                    @Query("usr_name") String userName,
-                    @Query("usr_phone") String userPhone,
-                    @Query("usr_addr") String usrAddr);
+    Call<Void> join(@Query("user_id") String userId,
+                    @Query("user_password") String userPassword,
+                    @Query("user_name") String userName,
+                    @Query("user_phone") String userPhone,
+                    @Query("user_address") String userAddress);
 
     @GET("user/duplication")
-    Call<ResponseBody> duplication(@Query("usr_id") String userId);
+    Call<ResponseBody> duplication(@Query("user_id") String userId);
 
     // 가게 목록 조회
     @POST("store/selectStoreList")

@@ -39,7 +39,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                     if(pendingDynamicLinkData == null){
 
                         new Handler().postDelayed(() -> {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.enter_no_anim, R.anim.exit_no_anim);
                             finish();
