@@ -1,22 +1,25 @@
 package com.dankook.tagme.view.store.storeList;
 
 import android.annotation.SuppressLint;
+import android.databinding.ObservableBoolean;
 
 import com.dankook.tagme.data.source.StoreRepository;
 import com.dankook.tagme.mapper.RequestMapper;
 import com.dankook.tagme.model.Store;
-import com.dankook.tagme.view.BaseAdapterContract;
+import com.dankook.tagme.view.adapter.BaseAdapterContract;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class StoreListPresenter implements StoreListContract.Presenter {
 
-    StoreListContract.View view;
-    BaseAdapterContract.View adapterView;
-    BaseAdapterContract.Model<Store> adapterModel;
-    StoreRepository repository;
+    public final ObservableBoolean isLoading = new ObservableBoolean(true);
 
-    private int categoryKey;
+    private StoreListContract.View view;
+    private BaseAdapterContract.View adapterView;
+    private BaseAdapterContract.Model<Store> adapterModel;
+    private final StoreRepository repository;
+
+    private final int categoryKey;
 
     public StoreListPresenter(StoreListContract.View view, StoreRepository repository, int categoryKey){
         this.view = view;
@@ -50,8 +53,15 @@ public class StoreListPresenter implements StoreListContract.Presenter {
     @Override
     public void loadItems() {
 
-        repository.getStores(RequestMapper.storeListRequestMapping(categoryKey))
+        isLoading.set(true);
+
+        repository.getStores(categoryKey)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(storeList -> adapterModel.addItems(storeList), error -> {});
+                .subscribe(storeList -> {
+                    isLoading.set(false);
+                    adapterModel.addItems(storeList);
+                }, error -> {
+                    isLoading.set(false);
+                });
     }
 }

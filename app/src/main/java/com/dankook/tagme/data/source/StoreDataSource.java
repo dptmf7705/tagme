@@ -1,7 +1,5 @@
 package com.dankook.tagme.data.source;
 
-import com.dankook.tagme.data.remote.StoreDetailRequest;
-import com.dankook.tagme.data.remote.StoreListRequest;
 import com.dankook.tagme.model.Category;
 import com.dankook.tagme.model.Store;
 
@@ -13,7 +11,7 @@ public interface StoreDataSource {
 
     Observable<List<Category>> getCategories();
 
-    Observable<List<Store>> getStores(StoreListRequest request);
+    Observable<List<Store>> getStores(int categoryKey);
 
-    Observable<Store> getStore(StoreDetailRequest request);
+    Observable<Store> getStore(int storeKey);
 }

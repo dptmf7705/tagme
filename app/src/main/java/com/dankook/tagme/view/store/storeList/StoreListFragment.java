@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.dankook.tagme.R;
@@ -46,7 +47,7 @@ public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> im
         Bundle args = getArguments();
 
         if(args != null){
-            categoryKey = args.getInt(EXTRA_CATEGORY_KEY, 0);
+            categoryKey = args.getInt(EXTRA_CATEGORY_KEY);
         }
     }
 
@@ -77,8 +78,8 @@ public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> im
         // 가게 목록 리사이클러뷰 생성
         binding.recyclerStoreList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         binding.recyclerStoreList.setAdapter(adapter);
-        binding.recyclerStoreList.setNestedScrollingEnabled(false);
         binding.recyclerStoreList.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+        binding.recyclerStoreList.setItemViewCacheSize(35);
     }
 
     @Override

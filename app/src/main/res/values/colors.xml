@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorAccent">#5B9BD5</color>
+    <color name="colorPrimaryDark">#f8f8f8</color>
+    <color name="colorAccent">#406890</color>
     <color name="colorMint">#2ac1bc</color>
     <color name="underbarColor">#d8d8d8</color>
-    <color name="colorGrey">#dcdcdc</color>
-    <color name="colorMainBlue">#5B9BD5</color>
-    <color name="colorAccentBlue">#4490C4</color>
+    <color name="colorGray">#dcdcdc</color>
+    <color name="colorMainBlue">#406890</color>
+    <color name="colorLightBlue">#e0eefa</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorLightBlack">#7a7a7a</color>
     <color name="colorBackgroundGray">#F2F2F2</color>
     <color name="colorDividerGray">#E0E0E0</color>
     <color name="colorShadow">#781e1e1e</color>

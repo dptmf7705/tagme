@@ -2,11 +2,10 @@ package com.dankook.tagme.data.source;
 
 import com.dankook.tagme.data.remote.RetrofitApi;
 import com.dankook.tagme.data.remote.RetrofitClient;
-import com.dankook.tagme.data.remote.StoreDetailRequest;
-import com.dankook.tagme.data.remote.StoreListRequest;
 import com.dankook.tagme.model.Category;
 import com.dankook.tagme.model.Store;
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -29,26 +28,24 @@ public class StoreRemoteDataSource implements StoreDataSource {
     public Observable<List<Category>> getCategories() {
         return RetrofitClient.getClient().create(RetrofitApi.class)
                 .getCategories()
-                .subscribeOn(Schedulers.newThread())
-                .map(response -> {
-                    Category category = new Category();
-                    category.setCategoryKey(0);
-                    category.setCategoryName("all");
-                    category.setCategoryNameKor("전체");
-                    response.add(0, category);
-                    return response;
-                });
+                .subscribeOn(Schedulers.newThread());
     }
 
     @Override
-    public Observable<List<Store>> getStores(StoreListRequest request) {
+    public Observable<List<Store>> getStores(int categoryKey) {
+        HashMap<String, Integer> request = new HashMap<>();
+        request.put("category_key", categoryKey);
+
         return RetrofitClient.getClient().create(RetrofitApi.class)
                 .getStores(request)
                 .subscribeOn(Schedulers.newThread());
     }
 
     @Override
-    public Observable<Store> getStore(StoreDetailRequest request) {
+    public Observable<Store> getStore(int storeKey) {
+        HashMap<String, Integer> request = new HashMap<>();
+        request.put("store_key", storeKey);
+
         return RetrofitClient.getClient().create(RetrofitApi.class)
                 .getStore(request)
                 .subscribeOn(Schedulers.newThread());

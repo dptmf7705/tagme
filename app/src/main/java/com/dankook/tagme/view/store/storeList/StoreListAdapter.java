@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.dankook.tagme.R;
 import com.dankook.tagme.databinding.HolderStoreListItemBinding;
 import com.dankook.tagme.model.Store;
-import com.dankook.tagme.view.BaseRecyclerViewAdapter;
+import com.dankook.tagme.view.adapter.BaseRecyclerViewAdapter;
 
 public class StoreListAdapter extends BaseRecyclerViewAdapter<Store, StoreListAdapter.ViewHolder> {
 
