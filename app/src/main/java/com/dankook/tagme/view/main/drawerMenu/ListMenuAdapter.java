@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dankook.tagme.view.BaseRecyclerViewAdapter;
+import com.dankook.tagme.view.adapter.BaseRecyclerViewAdapter;
 import com.dankook.tagme.R;
 import com.dankook.tagme.databinding.LayoutDrawerListItemBinding;
 

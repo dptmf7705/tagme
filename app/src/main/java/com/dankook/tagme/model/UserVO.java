@@ -3,7 +3,6 @@ package com.dankook.tagme.model;
 import com.google.gson.annotations.SerializedName;
 
 public class UserVO {
-
     @SerializedName("usr_key") private int usrKey;
     @SerializedName("usr_id") private String usrId;
     @SerializedName("usr_password") private String usrPassword;

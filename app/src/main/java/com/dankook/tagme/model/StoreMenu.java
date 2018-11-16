@@ -1,22 +1,45 @@
 package com.dankook.tagme.model;
 
-import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class StoreMenu {
 
+    @SerializedName("menu_key")
+    @Expose
+    private Integer menuKey;
+
+    @SerializedName("menu_name")
+    @Expose
     private String menuName;
 
-    private String menuDescription;
+    @SerializedName("menu_image_path")
+    @Expose
+    private String menuImagePath;
 
-    private String menuPrice;
+    @SerializedName("menu_price")
+    @Expose
+    private Integer menuPrice;
 
-    private String menuImageUrl;
+    @SerializedName("rating_count")
+    @Expose
+    private Integer ratingCount;
 
-    private int ratingCount;
+    @SerializedName("review_count")
+    @Expose
+    private Integer reviewCount;
 
-    private int reviewCount;
+    @SerializedName("store_key")
+    @Expose
+    private Integer storeKey;
 
-    private List<Review> reviewList;
+    public Integer getMenuKey() {
+        return menuKey;
+    }
+
+    public void setMenuKey(Integer menuKey) {
+        this.menuKey = menuKey;
+    }
 
     public String getMenuName() {
         return menuName;
@@ -26,51 +49,43 @@ public class StoreMenu {
         this.menuName = menuName;
     }
 
-    public String getMenuDescription() {
-        return menuDescription;
+    public String getMenuImagePath() {
+        return menuImagePath;
     }
 
-    public void setMenuDescription(String menuDescription) {
-        this.menuDescription = menuDescription;
+    public void setMenuImagePath(String menuImagePath) {
+        this.menuImagePath = menuImagePath;
     }
 
-    public String getMenuImageUrl() {
-        return menuImageUrl;
-    }
-
-    public void setMenuImageUrl(String menuImageUrl) {
-        this.menuImageUrl = menuImageUrl;
-    }
-
-    public String getMenuPrice() {
+    public Integer getMenuPrice() {
         return menuPrice;
     }
 
-    public void setMenuPrice(String menuPrice) {
+    public void setMenuPrice(Integer menuPrice) {
         this.menuPrice = menuPrice;
     }
 
-    public int getRatingCount() {
+    public Integer getRatingCount() {
         return ratingCount;
     }
 
-    public void setRatingCount(int ratingCount) {
+    public void setRatingCount(Integer ratingCount) {
         this.ratingCount = ratingCount;
     }
 
-    public int getReviewCount() {
+    public Integer getReviewCount() {
         return reviewCount;
     }
 
-    public void setReviewCount(int reviewCount) {
+    public void setReviewCount(Integer reviewCount) {
         this.reviewCount = reviewCount;
     }
 
-    public List<Review> getReviewList() {
-        return reviewList;
+    public Integer getStoreKey() {
+        return storeKey;
     }
 
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
+    public void setStoreKey(Integer storeKey) {
+        this.storeKey = storeKey;
     }
 }

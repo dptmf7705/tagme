@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dankook.tagme.R;
-import com.dankook.tagme.databinding.LayoutStoreListItemBinding;
+import com.dankook.tagme.databinding.HolderStoreListItemBinding;
 import com.dankook.tagme.model.Store;
-import com.dankook.tagme.view.BaseRecyclerViewAdapter;
+import com.dankook.tagme.view.adapter.BaseRecyclerViewAdapter;
 
 public class StoreListAdapter extends BaseRecyclerViewAdapter<Store, StoreListAdapter.ViewHolder> {
 
@@ -27,13 +27,13 @@ public class StoreListAdapter extends BaseRecyclerViewAdapter<Store, StoreListAd
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_store_list_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.holder_store_list_item, parent, false);
         return new ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        protected LayoutStoreListItemBinding binding;
+        protected HolderStoreListItemBinding binding;
 
         public ViewHolder(View itemView) {
             super(itemView);

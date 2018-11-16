@@ -1,4 +1,4 @@
-package com.dankook.tagme.view;
+package com.dankook.tagme.view.adapter;
 
 import com.dankook.tagme.view.listener.OnItemClickListener;
 import com.dankook.tagme.view.listener.OnItemLongClickListener;

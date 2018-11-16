@@ -1,19 +1,34 @@
 package com.dankook.tagme.view.main;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
+import android.view.ViewGroup;
 
 import com.dankook.tagme.R;
+import com.dankook.tagme.data.source.StoreRepository;
 import com.dankook.tagme.databinding.ActivityMainBinding;
+import com.dankook.tagme.model.Category;
 import com.dankook.tagme.view.BaseActivity;
 import com.dankook.tagme.view.main.drawerMenu.DrawerMenuFragment;
 import com.dankook.tagme.view.main.map.NMapFragment;
 import com.dankook.tagme.view.store.storeList.StoreListFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
 public class MainActivity extends BaseActivity<ActivityMainBinding>{
+
+    private List<Category> categoryList = new ArrayList<>();
+    private StoreListPagerAdapter adapter;
 
     @Override
     protected int getLayoutId() {
@@ -27,13 +42,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
         initView();
     }
 
+    @SuppressLint("CheckResult")
     private void initView() {
 
         // 툴바 생성
         binding.layoutToolbar.btnLeft.setImageResource(R.drawable.icon_menu);
         binding.layoutToolbar.btnLeft.setOnClickListener(v -> toggleDrawerMenu());
         binding.layoutToolbar.btnRight.setImageResource(R.drawable.icon_search);
-        binding.layoutToolbar.ivCenter.setImageResource(R.drawable.icon_logo_text);
 
         // 맵뷰 생성
         NMapFragment fragment = new NMapFragment();
@@ -43,15 +58,35 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
                 .commit();
 
         // 뷰페이저 생성
-        binding.viewPagerStoreList.setAdapter(new StoreListPagerAdapter(getSupportFragmentManager()));
+        adapter = new StoreListPagerAdapter(getSupportFragmentManager());
+        binding.viewPagerStoreList.setAdapter(adapter);
         binding.viewPagerStoreList.setCurrentItem(0);
 
         // 탭 생성
         binding.tabStoreType.setupWithViewPager(binding.viewPagerStoreList);
-        String[] storeTypeArr = getResources().getStringArray(R.array.store_type);
-        for(int i = 0 ; i < storeTypeArr.length ; i++){
-            binding.tabStoreType.getTabAt(i).setText(storeTypeArr[i]);
-        }
+        // 카테고리 리스트 서버에서 받아오기
+        StoreRepository.getInstance().getCategories()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                            Category category = new Category();
+                            category.setCategoryKey(0);
+                            category.setCategoryName("all");
+                            category.setCategoryNameKor("전체");
+                            response.add(0, category);
+
+                            categoryList = response;
+
+                            adapter.updateTabItems(categoryList);
+                            binding.viewPagerStoreList.setOffscreenPageLimit(categoryList.size()/2);
+
+                            // 받아온 카테고리 목록을 탭에 등록
+                            if(categoryList != null) {
+                                for (int i = 0 ; i < categoryList.size() ; i++) {
+                                    binding.tabStoreType.getTabAt(i).setText(categoryList.get(i).getCategoryNameKor());
+                                }
+                            }
+                        },
+                        error -> Log.d("getCategory", "error"));
 
         // 드로어 메뉴 생성
         getSupportFragmentManager()
@@ -74,22 +109,47 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
      * 카테고리별 가게 목록 보여줄 뷰페이저의 어댑터 */
     private class StoreListPagerAdapter extends FragmentStatePagerAdapter{
 
-        private String[] storeTypeKeys = getResources().getStringArray(R.array.store_type_key);
-        private final int NUM_OF_TAB = storeTypeKeys.length;
+        List<Category> itemList = new ArrayList<>();
+        List<Fragment> fragmentList = new ArrayList<>();
 
         public StoreListPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
+        public void updateTabItems(List<Category> itemList){
+            this.itemList.addAll(itemList);
+            for(Category category : this.itemList){
+                Log.d("updateTabItems", "getCategoryKey: " + category.getCategoryKey());
+                this.fragmentList.add(StoreListFragment.newInstance(category.getCategoryKey()));
+            }
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            int index = fragmentList.indexOf(object);
+            if(index >= 0){
+                return index;
+            } else {
+                return POSITION_NONE;
+            }
+        }
+
         @Override
         public Fragment getItem(int position) {
-
-            return StoreListFragment.newInstance(storeTypeKeys[position]);
+            Log.d("getItem", "position: " + position);
+            return fragmentList.get(position);
         }
 
         @Override
         public int getCount() {
-            return NUM_OF_TAB;
+            return this.itemList.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            Log.d("getPageTitle", "position: " + position);
+            return this.itemList.get(position).getCategoryName();
         }
     }
 

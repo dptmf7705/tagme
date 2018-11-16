@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.dankook.tagme.R;
 import com.dankook.tagme.model.StoreMenu;
-import com.dankook.tagme.view.BaseRecyclerViewAdapter;
+import com.dankook.tagme.view.adapter.BaseRecyclerViewAdapter;
 import com.dankook.tagme.databinding.HolderStoreMenuItemBinding;
 
 public class StoreMenuAdapter extends BaseRecyclerViewAdapter<StoreMenu, StoreMenuAdapter.ViewHolder> {

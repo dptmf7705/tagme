@@ -30,7 +30,7 @@
 
     <!-- tab -->
     <dimen name="tab_layout_size">40dp</dimen>
-    <dimen name="tab_divider_size">4dp</dimen>
+    <dimen name="tab_divider_size">2dp</dimen>
 
     <!-- map layout size -->
     <dimen name="map_layout_size">320dp</dimen>

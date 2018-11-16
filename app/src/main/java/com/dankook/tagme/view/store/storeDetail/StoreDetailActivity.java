@@ -27,11 +27,12 @@ import com.google.firebase.dynamiclinks.ShortDynamicLink;
 public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding> implements StoreDetailContract.View{
 
     public static final String EXTRA_STORE_KEY = "EXTRA_STORE_KEY";
+
     public static final String EXTRA_IS_DYNAMIC_LINK = "EXTRA_IS_DYNAMIC_LINK";
     public static final String EXTRA_TABLE_NUMBER = "EXTRA_TABLE_NUMBER";
 
+    private int storeKey;
     private boolean isDynamicLink;
-    private String storeKey;
     private String tableNumber;
 
     private StoreDetailPresenter presenter;
@@ -47,7 +48,7 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
         if(isDynamicLink){
             tableNumber = intent.getStringExtra(EXTRA_TABLE_NUMBER);
         }
-        storeKey = intent.getStringExtra(EXTRA_STORE_KEY);
+        storeKey = intent.getIntExtra(EXTRA_STORE_KEY, 0);
     }
 
     @Override
@@ -56,22 +57,26 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
 
         getExtraBundles(getIntent());
 
+        // 프레젠터 생성
+        presenter = new StoreDetailPresenter(this, StoreRepository.getInstance(), storeKey, isDynamicLink);
+        binding.content.setPresenter(presenter);
+
+        // 메뉴 어댑터 생성 후 프레젠터에 등록
+        adapter = new StoreMenuAdapter(this);
+        presenter.setAdapterView(adapter);
+        presenter.setAdapterModel(adapter);
+
         initView();
+
+        presenter.onViewCreated();
     }
 
     private void initView() {
 
-        presenter = new StoreDetailPresenter(this, StoreRepository.getInstance(), storeKey);
-        presenter.isDynamicLink.set(isDynamicLink);
-        binding.content.setPresenter(presenter);
-
         // 툴바 생성
+        binding.toolbar.layoutToolbar.setBackground(null);
         binding.toolbar.btnLeft.setImageResource(R.drawable.icon_toolbar_back);
         binding.toolbar.btnLeft.setOnClickListener(v -> onBackPressed());
-
-        adapter = new StoreMenuAdapter(this);
-        presenter.setAdapterView(adapter);
-        presenter.setAdapterModel(adapter);
 
         // 메뉴 리사이클러뷰 생성
         binding.content.recyclerStoreMenu.setLayoutManager(new GridLayoutManager(this, 2));
@@ -89,10 +94,10 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
                 makeDynamicLink(getStoreDeepLink(tableNumber));
             });
         }
-
-        presenter.onViewCreated();
     }
 
+    /**
+     * 액티비티가 실행되는 중에 태깅했을 경우 호출됨 */
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -100,6 +105,8 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
         getExtraBundles(intent);
 
         initView();
+
+        presenter.onViewCreated();
     }
 
     @Override
@@ -116,26 +123,11 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
     @Override
     public void onStoreDetailDataLoaded(Store store) {
         binding.toolbar.tvCenter.setText(store.getStoreName());
-        GlideUtil.loadImage(binding.ivAppbarMain, store.getMainImageUrl());
+        GlideUtil.loadImage(binding.ivAppbarMain, store.getStoreImageList().get(0).getStoreImagePath());
     }
 
-    private Uri getStoreDeepLink(String tableNumber){
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("https://tagme.com/");
-        sb.append(DynamicLinkUtil.SEGMENT_STORE);
-        sb.append("?");
-        sb.append(DynamicLinkUtil.STORE_KEY);
-        sb.append("=");
-        sb.append(storeKey);
-        sb.append("&");
-        sb.append(DynamicLinkUtil.TABLE_NUMBER);
-        sb.append("=");
-        sb.append(tableNumber);
-
-        return Uri.parse(sb.toString());
-    }
-
+    /**
+     * 현재 가게의 다이나믹 링크 생성 */
     private void makeDynamicLink(Uri uri){
 
         FirebaseDynamicLinks.getInstance().createDynamicLink()
@@ -145,15 +137,6 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
                 .setAndroidParameters(
                         new DynamicLink.AndroidParameters.Builder()
                                 .build())
-//            앱 미리보기 페이지를 건너뛰고 리다이렉션
-//            .setNavigationInfoParameters(new DynamicLink.NavigationInfoParameters.Builder()
-//                    .setForcedRedirectEnabled(true)
-//                    .build())
-//            링크와 연결된 타이틀, 이미지 설정
-//            .setSocialMetaTagParameters(new DynamicLink.SocialMetaTagParameters.Builder()
-//                    .setTitle("")
-//                    .setImageUrl(null)
-//                    .build())
                 .buildShortDynamicLink()
                 .addOnCompleteListener(this, new OnCompleteListener<ShortDynamicLink>() {
                     @Override
@@ -176,4 +159,20 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
                 });
     }
 
+    private Uri getStoreDeepLink(String tableNumber){
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("https://tagme.com/");
+        sb.append(DynamicLinkUtil.SEGMENT_STORE);
+        sb.append("?");
+        sb.append(DynamicLinkUtil.STORE_KEY);
+        sb.append("=");
+        sb.append(storeKey);
+        sb.append("&");
+        sb.append(DynamicLinkUtil.TABLE_NUMBER);
+        sb.append("=");
+        sb.append(tableNumber);
+
+        return Uri.parse(sb.toString());
+    }
 }

@@ -2,13 +2,11 @@ package com.dankook.tagme.view.store.storeDetail;
 
 import android.annotation.SuppressLint;
 import android.databinding.ObservableBoolean;
-import android.util.Log;
 
-import com.dankook.tagme.data.remote.StoreDetailRequest;
 import com.dankook.tagme.data.source.StoreRepository;
-import com.dankook.tagme.model.Store;
+import com.dankook.tagme.mapper.RequestMapper;
 import com.dankook.tagme.model.StoreMenu;
-import com.dankook.tagme.view.BaseAdapterContract;
+import com.dankook.tagme.view.adapter.BaseAdapterContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +22,13 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
     private BaseAdapterContract.Model<StoreMenu> adapterModel;
     private StoreRepository repository;
 
-    private final String storeKey;
+    private final int storeKey;
 
-    public StoreDetailPresenter(StoreDetailContract.View view, StoreRepository repository, String storeKey){
+    public StoreDetailPresenter(StoreDetailContract.View view, StoreRepository repository, int storeKey, boolean isDynamicLink){
         this.view = view;
         this.repository = repository;
         this.storeKey = storeKey;
+        this.isDynamicLink.set(isDynamicLink);
     }
 
     @Override
@@ -51,18 +50,11 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
     @Override
     public void loadItems() {
 
-        repository.getStore(new StoreDetailRequest(storeKey))
+        repository.getStore(storeKey)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(store -> {
                     view.onStoreDetailDataLoaded(store);
-                    List<StoreMenu> menuList = new ArrayList<>();
-                    for(int i = 0 ; i < 6 ; i++) {
-                        StoreMenu menu = new StoreMenu();
-                        menu.setMenuName("메뉴" + (i+1));
-                        menu.setMenuImageUrl(store.getMainImageUrl());
-                        menuList.add(menu);
-                    }
-                    adapterModel.addItems(menuList);
+                    adapterModel.addItems(store.getStoreMenuList());
                 }, error -> {});
     }
 

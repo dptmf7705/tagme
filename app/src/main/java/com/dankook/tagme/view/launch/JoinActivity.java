@@ -52,7 +52,6 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
                 //TODO. 아이디 중복 체크 & 비밀번호 체크 확인
                 if(idDuplication == false &&
                         binding.etxtJoinPassword.getText().toString().equals(binding.etxtJoinPasswordCheck.getText().toString())){
-
                     userVO.setUsrId(binding.etxtJoinId.getText().toString());
                     userVO.setUsrPassword(binding.etxtJoinPassword.getText().toString());
                     userVO.setUsrName(binding.etxtJoinName.getText().toString());
@@ -60,13 +59,7 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
                     userVO.setUsrAddr(binding.etxtJoinAddr.getText().toString());
 
                     RetrofitApi request = RetrofitClient.getClient().create(RetrofitApi.class);
-                    Call<Void> call = request.join(userVO
-//                            binding.etxtJoinId.getText().toString(),
-//                            binding.etxtJoinPassword.getText().toString(),
-//                            binding.etxtName.getText().toString(),
-//                            binding.etxtJoinPhone.getText().toString(),
-//                            binding.etxtJoinAddr.getText().toString()
-                    );
+                    Call<Void> call = request.join(userVO);
 
                     call.enqueue(new Callback<Void>() {
                         @Override

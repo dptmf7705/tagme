@@ -28,7 +28,7 @@
                     android:layout_gravity="top"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    layout="@layout/layout_toolbar_store"/>
+                    layout="@layout/layout_toolbar"/>
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>

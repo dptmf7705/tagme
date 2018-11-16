@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.dankook.tagme.R;
@@ -16,12 +17,12 @@ import com.dankook.tagme.view.store.storeDetail.StoreDetailActivity;
 
 public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> implements StoreListContract.View {
 
-    private static final String EXTRA_STORE_TYPE = "EXTRA_STORE_TYPE";
+    private static final String EXTRA_CATEGORY_KEY = "EXTRA_CATEGORY_KEY";
 
     private StoreListPresenter presenter;
     private StoreListAdapter adapter;
 
-    private String storeType;
+    private int categoryKey;
 
     @Override
     protected int getLayoutId() {
@@ -30,23 +31,23 @@ public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> im
 
     public StoreListFragment(){}
 
-    public static StoreListFragment newInstance(String storeType) {
+    public static StoreListFragment newInstance(int categoryKey) {
 
         StoreListFragment fragment = new StoreListFragment();
 
         Bundle args = new Bundle();
-        args.putString(EXTRA_STORE_TYPE, storeType);
+        args.putInt(EXTRA_CATEGORY_KEY, categoryKey);
         fragment.setArguments(args);
 
         return fragment;
     }
 
-    private void getExtraStoreType(){
+    private void getCategoryKey(){
 
         Bundle args = getArguments();
 
         if(args != null){
-            storeType = args.getString(EXTRA_STORE_TYPE);
+            categoryKey = args.getInt(EXTRA_CATEGORY_KEY);
         }
     }
 
@@ -54,9 +55,9 @@ public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> im
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getExtraStoreType();
+        getCategoryKey();
 
-        presenter = new StoreListPresenter(this, StoreRepository.getInstance(), storeType);
+        presenter = new StoreListPresenter(this, StoreRepository.getInstance(), categoryKey);
     }
 
     @Override
@@ -77,8 +78,8 @@ public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> im
         // 가게 목록 리사이클러뷰 생성
         binding.recyclerStoreList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         binding.recyclerStoreList.setAdapter(adapter);
-        binding.recyclerStoreList.setNestedScrollingEnabled(false);
         binding.recyclerStoreList.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+        binding.recyclerStoreList.setItemViewCacheSize(35);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> im
     }
 
     @Override
-    public void startStoreDetailActivity(String storeKey) {
+    public void startStoreDetailActivity(int storeKey) {
         Intent intent = new Intent(context, StoreDetailActivity.class);
         intent.putExtra(StoreDetailActivity.EXTRA_IS_DYNAMIC_LINK, false);
         intent.putExtra(StoreDetailActivity.EXTRA_STORE_KEY, storeKey);

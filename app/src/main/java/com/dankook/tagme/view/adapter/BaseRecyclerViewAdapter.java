@@ -1,4 +1,4 @@
-package com.dankook.tagme.view;
+package com.dankook.tagme.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
