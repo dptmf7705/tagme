@@ -53,7 +53,7 @@
             android:inputType="textPassword"/>
 
         <EditText
-            android:id="@+id/etxt_name"
+            android:id="@+id/etxt_joinName"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"

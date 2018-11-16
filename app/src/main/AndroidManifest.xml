@@ -24,10 +24,10 @@
         <activity android:name=".view.launch.SplashActivity">
 
             <!-- 앱 첫 실행화면 -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
 
             <!-- Firebase dynamic Link 처리 -->
             <intent-filter>
@@ -45,7 +45,12 @@
 
             </intent-filter>
         </activity>
-        <activity android:name=".view.launch.LoginActivity"/>
+        <activity android:name=".view.launch.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.main.MainActivity" />
         <activity android:name=".view.launch.JoinActivity"/>
         <activity android:name=".view.store.storeDetail.StoreDetailActivity"/>

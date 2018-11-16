@@ -8,8 +8,6 @@ import java.util.List;
 import io.reactivex.Observable;
 
 public interface StoreDataSource {
-
     Observable<List<Store>> getStores();
-
     Observable<Store> getStore(StoreDetailRequest request);
 }

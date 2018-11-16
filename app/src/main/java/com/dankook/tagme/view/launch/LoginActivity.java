@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.dankook.tagme.R;
+import com.dankook.tagme.data.remote.LoginRequest;
 import com.dankook.tagme.data.remote.RetrofitApi;
 import com.dankook.tagme.data.remote.RetrofitClient;
 import com.dankook.tagme.databinding.ActivityLoginBinding;
@@ -54,16 +55,17 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding>{
                 startActivity(intent);
             }
         });
+
         binding.btnLogin.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
                 //TODO. 로그인 확인후 액티비티 전환
                 String id = binding.etxtId.getText().toString();
                 String password = binding.etxtPassword.getText().toString();
-
+                LoginRequest loginRequest = new LoginRequest(id, password);
 
                 RetrofitApi request = RetrofitClient.getClient().create(RetrofitApi.class);
-                Call<LoginVO> call = request.login(id, password);
+                Call<LoginVO> call = request.login(loginRequest);
 
                 call.enqueue(new Callback<LoginVO>() {
                     @Override
@@ -78,13 +80,11 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding>{
                                 startActivity(intent);
                                 finish();
                             }else if(loginUser.getResult() == LOGIN_FAIL && loginUser.getFail().toString().equals(FAIL_ID)){
-                                Log.d("1번", loginUser.getFail());
                                 alertBuilder.setMessage("로그인 실패 : ID가 존재하지 않습니다.");
                                 alertBuilder.setPositiveButton("확인", null);
                                 AlertDialog alert = alertBuilder.create();
                                 alert.show();
                             }else if(loginUser.getResult() == LOGIN_FAIL && loginUser.getFail().toString().equals(FAIL_PASSWORD)){
-                                Log.d("2번", loginUser.getFail());
                                 alertBuilder.setMessage("로그인 실패 : PASSWORD가 일치하지 않습니다.");
                                 alertBuilder.setPositiveButton("확인", null);
                                 AlertDialog alert = alertBuilder.create();

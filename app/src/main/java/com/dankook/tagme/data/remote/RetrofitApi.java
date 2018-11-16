@@ -11,28 +11,22 @@ import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface RetrofitApi {
-
-    @GET("user/login")
-    Call<LoginVO> login(@Query("usr_id") String userId,
-                        @Query("usr_password") String userPassword);
-
-    @GET("user/join")
-    Call<Void> join(@Body UserVO userVO);
+    @POST("user/login")
+    Call<LoginVO> login(@Body LoginRequest loginRequest);
 
     @POST("user/join")
-    Call<Void> join(@Query("usr_id") String userId,
-                    @Query("usr_password") String userPassword,
-                    @Query("usr_name") String userName,
-                    @Query("usr_phone") String userPhone,
-                    @Query("usr_addr") String usrAddr);
+    Call<Void> join(@Body UserVO userVO);
 
-    @GET("user/duplication")
-    Call<ResponseBody> duplication(@Query("usr_id") String userId);
+    @FormUrlEncoded
+    @POST("user/duplication")
+    Call<ResponseBody> duplication(@Field("usr_id") String usrId);
 
     // 가게 목록 조회
     @POST("store/selectStoreList")

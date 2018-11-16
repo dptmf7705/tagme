@@ -6,8 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-
-    private static final String BASE_URL = "http://18.219.103.235:8080/tagmeServer/android/";
+    private static final String BASE_URL = "http://52.79.235.209:8080/tagmeServer/android/";
 
     private static Retrofit retrofit = null;
 

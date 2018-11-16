@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.dankook.tagme.R;
+import com.dankook.tagme.data.remote.DuplicationRequest;
 import com.dankook.tagme.data.remote.RetrofitApi;
 import com.dankook.tagme.data.remote.RetrofitClient;
 import com.dankook.tagme.databinding.ActivityJoinBinding;
+import com.dankook.tagme.model.UserVO;
 import com.dankook.tagme.view.BaseActivity;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -26,8 +28,7 @@ import retrofit2.Response;
 public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
     public boolean idDuplication = true;
     final Context context = this;
-    final String DUPLICATED_ID = "false";
-    final String UNIQUE_ID = "true";
+    final String DUPLICATED_ID_EXIST = "true";
 
     @Override
     protected int getLayoutId() {
@@ -46,25 +47,25 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
         binding.btnJoinFinish.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                UserVO userVO = new UserVO();
+                UserVO userVO = new UserVO();
 
                 //TODO. 아이디 중복 체크 & 비밀번호 체크 확인
                 if(idDuplication == false &&
                         binding.etxtJoinPassword.getText().toString().equals(binding.etxtJoinPasswordCheck.getText().toString())){
 
-//                    userVO.setUsr_id(binding.etxtJoinId.getText().toString());
-//                    userVO.setUsr_password(binding.etxtJoinPassword.getText().toString());
-//                    userVO.setUsr_name(binding.etxtName.getText().toString());
-//                    userVO.setUsr_phone(binding.etxtJoinPhone.getText().toString());
-//                    userVO.setUsr_addr(binding.etxtJoinAddr.getText().toString());
+                    userVO.setUsrId(binding.etxtJoinId.getText().toString());
+                    userVO.setUsrPassword(binding.etxtJoinPassword.getText().toString());
+                    userVO.setUsrName(binding.etxtJoinName.getText().toString());
+                    userVO.setUsrPhone(binding.etxtJoinPhone.getText().toString());
+                    userVO.setUsrAddr(binding.etxtJoinAddr.getText().toString());
 
                     RetrofitApi request = RetrofitClient.getClient().create(RetrofitApi.class);
-                    Call<Void> call = request.join(
-                            binding.etxtJoinId.getText().toString(),
-                            binding.etxtJoinPassword.getText().toString(),
-                            binding.etxtName.getText().toString(),
-                            binding.etxtJoinPhone.getText().toString(),
-                            binding.etxtJoinAddr.getText().toString()
+                    Call<Void> call = request.join(userVO
+//                            binding.etxtJoinId.getText().toString(),
+//                            binding.etxtJoinPassword.getText().toString(),
+//                            binding.etxtName.getText().toString(),
+//                            binding.etxtJoinPhone.getText().toString(),
+//                            binding.etxtJoinAddr.getText().toString()
                     );
 
                     call.enqueue(new Callback<Void>() {
@@ -101,6 +102,7 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
             public void onClick(View v) {
                 Log.d("리스너진입", "리스너");
                 RetrofitApi request = RetrofitClient.getClient().create(RetrofitApi.class);
+//                DuplicationRequest duplicationRequest = new DuplicationRequest(binding.etxtJoinId.getText().toString());
 
                 Call<ResponseBody> call = request.duplication(binding.etxtJoinId.getText().toString());
 
@@ -111,6 +113,7 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
                         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
                         try {
                             String Object;
+                            Log.d("파싱에러", response.body()+"");
                             Object = response.body().string();
                             JsonParser parser = new JsonParser();
                             JsonObject jsonObject = (JsonObject)parser.parse(Object);
@@ -119,10 +122,10 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
                             e.printStackTrace();
                         }
 
-                        if(result.equals(DUPLICATED_ID)){
+                        if(result.equals(DUPLICATED_ID_EXIST)){
                             Log.d("dupsuccess", result.toString());
                             alertBuilder.setMessage("중복된 아이디가 존재합니다.");
-                        }else if(result.equals(UNIQUE_ID)){
+                        }else if(!result.equals(DUPLICATED_ID_EXIST)){
                             Log.d("dupfail", result.toString());
                             alertBuilder.setMessage("중복된 아이디가 없습니다.");
                             idDuplication = false;

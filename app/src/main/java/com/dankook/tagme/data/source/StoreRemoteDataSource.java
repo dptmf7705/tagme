@@ -11,7 +11,6 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class StoreRemoteDataSource implements StoreDataSource {
-
     private static StoreRemoteDataSource storeRemoteDataSource;
 
     private StoreRemoteDataSource(){}

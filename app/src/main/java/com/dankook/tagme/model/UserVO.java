@@ -1,59 +1,61 @@
 package com.dankook.tagme.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class UserVO {
-    private int usr_key;
-    private String usr_id;
-    private String usr_password;
-    private String usr_name;
-    private String usr_phone;
-    private String usr_addr;
 
-    public void setUsr_key(int usr_key) {
-        this.usr_key = usr_key;
+    @SerializedName("usr_key") private int usrKey;
+    @SerializedName("usr_id") private String usrId;
+    @SerializedName("usr_password") private String usrPassword;
+    @SerializedName("usr_name") private String usrName;
+    @SerializedName("usr_phone") private String usrPhone;
+    @SerializedName("usr_addr") private String usrAddr;
+
+    public void setUsrkey(int usrKey) {
+        this.usrKey = usrKey;
     }
 
-    public void setUsr_id(String usr_id) {
-        this.usr_id = usr_id;
+    public void setUsrId(String usrId) {
+        this.usrId = usrId;
     }
 
-    public void setUsr_password(String usr_password) {
-        this.usr_password = usr_password;
+    public void setUsrPassword(String usrPassword) {
+        this.usrPassword = usrPassword;
     }
 
-    public void setUsr_name(String usr_name) {
-        this.usr_name = usr_name;
+    public void setUsrName(String usrName) {
+        this.usrName = usrName;
     }
 
-    public void setUsr_phone(String usr_phone) {
-        this.usr_phone = usr_phone;
+    public void setUsrPhone(String usrPhone) {
+        this.usrPhone = usrPhone;
     }
 
-    public void setUsr_addr(String usr_addr) {
-        this.usr_addr = usr_addr;
+    public void setUsrAddr(String usrAddr) {
+        this.usrAddr = usrAddr;
     }
 
-
-    public int getUsr_key() {
-        return usr_key;
+    public int getUsrkey() {
+        return usrKey;
     }
 
-    public String getUsr_id() {
-        return usr_id;
+    public String getUsrId() {
+        return usrId;
     }
 
-    public String getUsr_password() {
-        return usr_password;
+    public String getUsrPassword() {
+        return usrPassword;
     }
 
-    public String getUsr_name() {
-        return usr_name;
+    public String getUsrName() {
+        return usrName;
     }
 
-    public String getUsr_phone() {
-        return usr_phone;
+    public String getUsrPhone() {
+        return usrPhone;
     }
 
-    public String getUsr_addr() {
-        return usr_addr;
+    public String getUsrAddr() {
+        return usrAddr;
     }
 }
