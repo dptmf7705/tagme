@@ -32,9 +32,8 @@ public interface RetrofitApi {
     Call<Void> join(@Body UserVO userVO);
 
     // ID 중복 조회
-    @FormUrlEncoded
     @POST("user/duplication")
-    Call<ResponseBody> duplication(@Field("usr_id") String usrId);
+    Call<ResponseBody> duplication(@Body HashMap<String, String> userId);
 
     // 카테고리 목록 조회
     @GET("store/getCategoryList")

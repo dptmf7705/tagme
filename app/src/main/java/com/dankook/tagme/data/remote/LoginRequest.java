@@ -3,8 +3,8 @@ package com.dankook.tagme.data.remote;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest {
-    @SerializedName("usr_id") private String usrId;
-    @SerializedName("usr_password") private String usrPassword;
+    @SerializedName("user_id") private String usrId;
+    @SerializedName("user_password") private String usrPassword;
 
     public LoginRequest(String usrId, String usrPassword) {
         this.usrId = usrId;

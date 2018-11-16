@@ -1,15 +1,13 @@
 package com.dankook.tagme.view.launch;
 
-import android.content.Context;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.dankook.tagme.R;
-import com.dankook.tagme.data.remote.DuplicationRequest;
 import com.dankook.tagme.data.remote.RetrofitApi;
 import com.dankook.tagme.data.remote.RetrofitClient;
 import com.dankook.tagme.databinding.ActivityJoinBinding;
@@ -19,6 +17,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -27,8 +26,7 @@ import retrofit2.Response;
 
 public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
     public boolean idDuplication = true;
-    final Context context = this;
-    final String DUPLICATED_ID_EXIST = "true";
+    private  final String DUPLICATED_ID_EXIST = "true";
 
     @Override
     protected int getLayoutId() {
@@ -58,6 +56,7 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
                     userVO.setUsrPhone(binding.etxtJoinPhone.getText().toString());
                     userVO.setUsrAddr(binding.etxtJoinAddr.getText().toString());
 
+                    Log.d("id", userVO.getUsrId());
                     RetrofitApi request = RetrofitClient.getClient().create(RetrofitApi.class);
                     Call<Void> call = request.join(userVO);
 
@@ -68,20 +67,19 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
                             startActivity(intent);
                             finish();
                         }
-
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
                             Log.e("Join : 서버와 연결 실패",  t.getCause() +" " + t.getMessage());
                         }
                     });
                 }else if(idDuplication == true){
-                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(JoinActivity.this);
                     alertBuilder.setMessage("아이디 중복체크를 하세요");
                     alertBuilder.setPositiveButton("확인", null);
                     AlertDialog alert = alertBuilder.create();
                     alert.show();
                 }else if(!binding.etxtJoinPassword.getText().toString().equals(binding.etxtJoinPasswordCheck.getText().toString())){
-                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(JoinActivity.this);
                     alertBuilder.setMessage("비밀번호가 다릅니다.");
                     alertBuilder.setPositiveButton("확인", null);
                     AlertDialog alert = alertBuilder.create();
@@ -93,20 +91,20 @@ public class JoinActivity extends BaseActivity<ActivityJoinBinding> {
         binding.btnDupCheck.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.d("리스너진입", "리스너");
                 RetrofitApi request = RetrofitClient.getClient().create(RetrofitApi.class);
-//                DuplicationRequest duplicationRequest = new DuplicationRequest(binding.etxtJoinId.getText().toString());
+                HashMap<String, String> userId = new HashMap<String, String>();
 
-                Call<ResponseBody> call = request.duplication(binding.etxtJoinId.getText().toString());
+                userId.put("user_id", binding.etxtJoinId.getText().toString());
 
+                Call<ResponseBody> call = request.duplication(userId);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         String result = null;
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(JoinActivity.this);
+
                         try {
                             String Object;
-                            Log.d("파싱에러", response.body()+"");
                             Object = response.body().string();
                             JsonParser parser = new JsonParser();
                             JsonObject jsonObject = (JsonObject)parser.parse(Object);

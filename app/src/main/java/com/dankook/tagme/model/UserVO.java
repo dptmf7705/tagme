@@ -3,12 +3,12 @@ package com.dankook.tagme.model;
 import com.google.gson.annotations.SerializedName;
 
 public class UserVO {
-    @SerializedName("usr_key") private int usrKey;
-    @SerializedName("usr_id") private String usrId;
-    @SerializedName("usr_password") private String usrPassword;
-    @SerializedName("usr_name") private String usrName;
-    @SerializedName("usr_phone") private String usrPhone;
-    @SerializedName("usr_addr") private String usrAddr;
+    @SerializedName("user_key") private int usrKey;
+    @SerializedName("user_id") private String usrId;
+    @SerializedName("user_password") private String usrPassword;
+    @SerializedName("user_name") private String usrName;
+    @SerializedName("user_phone") private String usrPhone;
+    @SerializedName("user_address") private String usrAddr;
 
     public void setUsrkey(int usrKey) {
         this.usrKey = usrKey;
