@@ -36,14 +36,14 @@ public interface RetrofitApi {
     Call<ResponseBody> duplication(@Body HashMap<String, String> userId);
 
     // 카테고리 목록 조회
-    @GET("store/getCategoryList")
-    Observable<List<Category>> getCategories();
+    @GET("store/selectCategoryList")
+    Observable<LoadDataListResponse<Category>> getCategoryList();
 
     // 가게 목록 조회
     @POST("store/selectStoreList")
-    Observable<List<Store>> getStores(@Body HashMap<String, Integer> categoryKey);
+    Observable<LoadDataListResponse<Store>> getStoreList(@Body StoreListRequest request);
 
     // 가게 상세정보 조회
     @POST("store/selectStore")
-    Observable<Store> getStore(@Body HashMap<String, Integer> storeKey);
+    Observable<LoadDataResponse<Store>> getStore(@Body StoreDetailRequest request);
 }

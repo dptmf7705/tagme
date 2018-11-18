@@ -18,6 +18,6 @@ public interface StoreListContract {
 
         void setAdapterModel(BaseAdapterContract.Model<Store> adapterModel);
 
-        void loadItems();
+        void loadItems(boolean isRefresh);
     }
 }

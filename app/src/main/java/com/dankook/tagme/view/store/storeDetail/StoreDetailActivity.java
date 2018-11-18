@@ -9,10 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
-import android.view.View;
 
 import com.dankook.tagme.R;
-import com.dankook.tagme.data.source.StoreRepository;
+import com.dankook.tagme.data.source.store.StoreRepository;
 import com.dankook.tagme.model.Store;
 import com.dankook.tagme.utils.DynamicLinkUtil;
 import com.dankook.tagme.utils.GlideUtil;
@@ -123,7 +122,7 @@ public class StoreDetailActivity extends BaseActivity<ActivityStoreDetailBinding
     @Override
     public void onStoreDetailDataLoaded(Store store) {
         binding.toolbar.tvCenter.setText(store.getStoreName());
-        GlideUtil.loadImage(binding.ivAppbarMain, store.getStoreImageList().get(0).getStoreImagePath());
+        GlideUtil.loadImage(binding.ivAppbarMain, store.getImageStoredPath());
     }
 
     /**

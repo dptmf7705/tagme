@@ -2,6 +2,7 @@ package com.dankook.tagme.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.dankook.tagme.view.listener.OnItemClickListener;

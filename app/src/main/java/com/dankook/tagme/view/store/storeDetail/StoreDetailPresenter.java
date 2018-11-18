@@ -3,13 +3,10 @@ package com.dankook.tagme.view.store.storeDetail;
 import android.annotation.SuppressLint;
 import android.databinding.ObservableBoolean;
 
-import com.dankook.tagme.data.source.StoreRepository;
+import com.dankook.tagme.data.source.store.StoreRepository;
 import com.dankook.tagme.mapper.RequestMapper;
-import com.dankook.tagme.model.StoreMenu;
+import com.dankook.tagme.model.Menu;
 import com.dankook.tagme.view.adapter.BaseAdapterContract;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -19,7 +16,7 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
 
     private StoreDetailContract.View view;
     private BaseAdapterContract.View adapterView;
-    private BaseAdapterContract.Model<StoreMenu> adapterModel;
+    private BaseAdapterContract.Model<Menu> adapterModel;
     private StoreRepository repository;
 
     private final int storeKey;
@@ -42,7 +39,7 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
     }
 
     @Override
-    public void setAdapterModel(BaseAdapterContract.Model<StoreMenu> adapterModel) {
+    public void setAdapterModel(BaseAdapterContract.Model<Menu> adapterModel) {
         this.adapterModel = adapterModel;
     }
 
@@ -50,11 +47,11 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
     @Override
     public void loadItems() {
 
-        repository.getStore(storeKey)
+        repository.getStore(RequestMapper.storeDetailMapping(storeKey))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(store -> {
                     view.onStoreDetailDataLoaded(store);
-                    adapterModel.addItems(store.getStoreMenuList());
+                    adapterModel.addItems(store.getMenuList());
                 }, error -> {});
     }
 

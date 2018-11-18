@@ -4,15 +4,13 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
-import android.view.ViewGroup;
 
 import com.dankook.tagme.R;
-import com.dankook.tagme.data.source.StoreRepository;
+import com.dankook.tagme.data.source.store.StoreRepository;
 import com.dankook.tagme.databinding.ActivityMainBinding;
 import com.dankook.tagme.model.Category;
 import com.dankook.tagme.view.BaseActivity;
@@ -65,7 +63,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
         // 탭 생성
         binding.tabStoreType.setupWithViewPager(binding.viewPagerStoreList);
         // 카테고리 리스트 서버에서 받아오기
-        StoreRepository.getInstance().getCategories()
+        StoreRepository.getInstance().getCategoryList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                             Category category = new Category();

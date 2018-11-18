@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.dankook.tagme.R;
-import com.dankook.tagme.data.source.StoreRepository;
+import com.dankook.tagme.data.source.store.StoreRepository;
 import com.dankook.tagme.databinding.FragmentStoreListBinding;
 import com.dankook.tagme.view.BaseFragment;
 import com.dankook.tagme.view.store.storeDetail.StoreDetailActivity;
@@ -57,12 +57,15 @@ public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> im
 
         getCategoryKey();
 
-        presenter = new StoreListPresenter(this, StoreRepository.getInstance(), categoryKey);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // 프레젠터 생성 후 뷰에 등록
+        presenter = new StoreListPresenter(this, StoreRepository.getInstance(), categoryKey);
+        binding.setPresenter(presenter);
 
         // 가게 목록 어댑터 생성
         adapter = new StoreListAdapter(context);
@@ -80,6 +83,21 @@ public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> im
         binding.recyclerStoreList.setAdapter(adapter);
         binding.recyclerStoreList.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
         binding.recyclerStoreList.setItemViewCacheSize(35);
+
+        // 최하단 스크롤 감지
+        binding.recyclerStoreList.setOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(!binding.recyclerStoreList.canScrollVertically(1)){
+                    presenter.loadItems(false);
+                }
+            }
+        });
+
+        // 최상단 refresh 리스너 등록
+        binding.swipeLayout.setOnRefreshListener(() -> presenter.loadItems(true));
+
     }
 
     @Override

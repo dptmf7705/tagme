@@ -3,35 +3,39 @@ package com.dankook.tagme.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class StoreMenu {
+public class Menu extends Image {
 
     @SerializedName("menu_key")
     @Expose
-    private Integer menuKey;
+    public Integer menuKey;
 
     @SerializedName("menu_name")
     @Expose
-    private String menuName;
-
-    @SerializedName("menu_image_path")
-    @Expose
-    private String menuImagePath;
+    public String menuName;
 
     @SerializedName("menu_price")
     @Expose
-    private Integer menuPrice;
+    public Integer menuPrice;
+
+    @SerializedName("menu_intro_text")
+    @Expose
+    public String menuIntroText;
 
     @SerializedName("rating_count")
     @Expose
-    private Integer ratingCount;
+    public Integer ratingCount;
 
     @SerializedName("review_count")
     @Expose
-    private Integer reviewCount;
+    public Integer reviewCount;
+
+    @SerializedName("menu_index")
+    @Expose
+    public Integer menuIndex;
 
     @SerializedName("store_key")
     @Expose
-    private Integer storeKey;
+    public Integer storeKey;
 
     public Integer getMenuKey() {
         return menuKey;
@@ -49,20 +53,20 @@ public class StoreMenu {
         this.menuName = menuName;
     }
 
-    public String getMenuImagePath() {
-        return menuImagePath;
-    }
-
-    public void setMenuImagePath(String menuImagePath) {
-        this.menuImagePath = menuImagePath;
-    }
-
     public Integer getMenuPrice() {
         return menuPrice;
     }
 
     public void setMenuPrice(Integer menuPrice) {
         this.menuPrice = menuPrice;
+    }
+
+    public String getMenuIntroText() {
+        return menuIntroText;
+    }
+
+    public void setMenuIntroText(String menuIntroText) {
+        this.menuIntroText = menuIntroText;
     }
 
     public Integer getRatingCount() {
@@ -79,6 +83,14 @@ public class StoreMenu {
 
     public void setReviewCount(Integer reviewCount) {
         this.reviewCount = reviewCount;
+    }
+
+    public Integer getMenuIndex() {
+        return menuIndex;
+    }
+
+    public void setMenuIndex(Integer menuIndex) {
+        this.menuIndex = menuIndex;
     }
 
     public Integer getStoreKey() {

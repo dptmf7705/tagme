@@ -1,7 +1,7 @@
 package com.dankook.tagme.view.store.storeDetail;
 
 import com.dankook.tagme.model.Store;
-import com.dankook.tagme.model.StoreMenu;
+import com.dankook.tagme.model.Menu;
 import com.dankook.tagme.view.adapter.BaseAdapterContract;
 import com.dankook.tagme.view.BasePresenter;
 import com.dankook.tagme.view.BaseView;
@@ -17,7 +17,7 @@ public interface StoreDetailContract {
 
         void setAdapterView(BaseAdapterContract.View adapterView);
 
-        void setAdapterModel(BaseAdapterContract.Model<StoreMenu> adapterModel);
+        void setAdapterModel(BaseAdapterContract.Model<Menu> adapterModel);
 
         void loadItems();
     }

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="com.dankook.tagme.model.StoreMenu"/>
+            type="com.dankook.tagme.model.Menu"/>
     </data>
 
     <LinearLayout
@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="152dp"
-            imageCenterCrop="@{item.menuImagePath}"/>
+            imageCenterCrop="@{item.imageStoredPath}"/>
 
         <Space
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
             android:textColor="@color/colorBlack"
-            android:text="@{String.valueOf(item.menuPrice)}"/>
+            android:text="@{String.valueOf(safeUnbox(item.menuPrice))}"/>
 
     </LinearLayout>
 </layout>

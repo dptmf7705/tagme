@@ -1,5 +1,7 @@
-package com.dankook.tagme.data.source;
+package com.dankook.tagme.data.source.store;
 
+import com.dankook.tagme.data.remote.StoreDetailRequest;
+import com.dankook.tagme.data.remote.StoreListRequest;
 import com.dankook.tagme.model.Category;
 import com.dankook.tagme.model.Store;
 
@@ -33,12 +35,12 @@ public class StoreRepository implements StoreDataSource {
     }
 
     @Override
-    public Observable<List<Category>> getCategories() {
+    public Observable<List<Category>> getCategoryList() {
 
         // 캐시 데이터 변경사항이 있을 경우 서버에 다시 요청
         if(isCacheCategoryDirty || cacheCategoryList.size() == 0) {
             // 카테고리 목록 요청 후 캐시에 저장
-            return remoteDataSource.getCategories()
+            return remoteDataSource.getCategoryList()
                     .doOnNext(list -> {
                         cacheCategoryList.addAll(list);
                         isCacheCategoryDirty = false;
@@ -51,14 +53,15 @@ public class StoreRepository implements StoreDataSource {
     }
 
     @Override
-    public Observable<List<Store>> getStores(int categoryKey) {
+    public Observable<List<Store>> getStoreList(StoreListRequest request) {
 
-        return remoteDataSource.getStores(categoryKey);
+        return remoteDataSource.getStoreList(request);
     }
 
     @Override
-    public Observable<Store> getStore(int storeKey) {
+    public Observable<Store> getStore(StoreDetailRequest request) {
 
-        return remoteDataSource.getStore(storeKey);
+        return remoteDataSource.getStore(request);
     }
+
 }

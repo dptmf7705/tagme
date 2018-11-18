@@ -5,51 +5,55 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Store {
+public class Store extends Image {
 
     @SerializedName("store_key")
     @Expose
-    private Integer storeKey;
-
-    @SerializedName("category_key")
-    @Expose
-    private Integer categoryKey;
+    public Integer storeKey;
 
     @SerializedName("store_name")
     @Expose
-    private String storeName;
+    public String storeName;
+
+    @SerializedName("store_branch")
+    @Expose
+    public String storeBranch;
 
     @SerializedName("store_address")
     @Expose
-    private String storeAddress;
+    public String storeAddress;
 
     @SerializedName("store_phone")
     @Expose
-    private String storePhone;
+    public String storePhone;
 
-    @SerializedName("store_image_key")
+    @SerializedName("open_time")
     @Expose
-    private Integer storeImageKey;
+    public String openTime;
 
-    @SerializedName("store_image_path")
+    @SerializedName("close_time")
     @Expose
-    private String storeImagePath;
+    public String closeTime;
 
     @SerializedName("rating_count")
     @Expose
-    private Integer ratingCount;
+    public Integer ratingCount;
 
     @SerializedName("review_count")
     @Expose
-    private Integer reviewCount;
+    public Integer reviewCount;
 
-    @SerializedName("storeImageList")
+    @SerializedName("category_key")
     @Expose
-    private List<StoreImage> storeImageList;
+    public Integer categoryKey;
 
-    @SerializedName("storeMenuList")
+    @SerializedName("imageList")
     @Expose
-    private List<StoreMenu> storeMenuList;
+    public List<Image> imageList = null;
+
+    @SerializedName("menuList")
+    @Expose
+    public List<Menu> menuList = null;
 
     public Integer getStoreKey() {
         return storeKey;
@@ -59,20 +63,20 @@ public class Store {
         this.storeKey = storeKey;
     }
 
-    public Integer getCategoryKey() {
-        return categoryKey;
-    }
-
-    public void setCategoryKey(Integer categoryKey) {
-        this.categoryKey = categoryKey;
-    }
-
     public String getStoreName() {
         return storeName;
     }
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
+    }
+
+    public String getStoreBranch() {
+        return storeBranch;
+    }
+
+    public void setStoreBranch(String storeBranch) {
+        this.storeBranch = storeBranch;
     }
 
     public String getStoreAddress() {
@@ -91,20 +95,20 @@ public class Store {
         this.storePhone = storePhone;
     }
 
-    public Integer getStoreImageKey() {
-        return storeImageKey;
+    public String getOpenTime() {
+        return openTime;
     }
 
-    public void setStoreImageKey(Integer storeImageKey) {
-        this.storeImageKey = storeImageKey;
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
     }
 
-    public String getStoreImagePath() {
-        return storeImagePath;
+    public String getCloseTime() {
+        return closeTime;
     }
 
-    public void setStoreImagePath(String storeImagePath) {
-        this.storeImagePath = storeImagePath;
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
     }
 
     public Integer getRatingCount() {
@@ -123,19 +127,28 @@ public class Store {
         this.reviewCount = reviewCount;
     }
 
-    public List<StoreImage> getStoreImageList() {
-        return storeImageList;
+    public Integer getCategoryKey() {
+        return categoryKey;
     }
 
-    public void setStoreImageList(List<StoreImage> storeImageList) {
-        this.storeImageList = storeImageList;
+    public void setCategoryKey(Integer categoryKey) {
+        this.categoryKey = categoryKey;
     }
 
-    public List<StoreMenu> getStoreMenuList() {
-        return storeMenuList;
+    public List<Image> getImageList() {
+        return imageList;
     }
 
-    public void setStoreMenuList(List<StoreMenu> storeMenuList) {
-        this.storeMenuList = storeMenuList;
+    public void setImageList(List<Image> imageList) {
+        this.imageList = imageList;
     }
+
+    public List<Menu> getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(List<Menu> menuList) {
+        this.menuList = menuList;
+    }
+
 }

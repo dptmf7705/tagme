@@ -18,7 +18,7 @@
             style="@style/mainImageButton"
             android:layout_width="@dimen/store_image_width"
             android:layout_height="@dimen/store_image_height"
-            imageCenterCrop="@{item.storeImagePath}"/>
+            imageCenterCrop="@{item.imageStoredPath}"/>
 
         <LinearLayout
             android:layout_marginLeft="@dimen/padding_small"

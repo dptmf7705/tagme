@@ -1,11 +1,14 @@
-package com.dankook.tagme.data.source;
+package com.dankook.tagme.data.source.store;
 
+import com.dankook.tagme.data.remote.LoadDataListResponse;
+import com.dankook.tagme.data.remote.LoadDataResponse;
 import com.dankook.tagme.data.remote.RetrofitApi;
 import com.dankook.tagme.data.remote.RetrofitClient;
+import com.dankook.tagme.data.remote.StoreDetailRequest;
+import com.dankook.tagme.data.remote.StoreListRequest;
 import com.dankook.tagme.model.Category;
 import com.dankook.tagme.model.Store;
 
-import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -24,29 +27,28 @@ public class StoreRemoteDataSource implements StoreDataSource {
     }
 
     @Override
-    public Observable<List<Category>> getCategories() {
+    public Observable<List<Category>> getCategoryList() {
         return RetrofitClient.getClient().create(RetrofitApi.class)
-                .getCategories()
-                .subscribeOn(Schedulers.newThread());
+                .getCategoryList()
+                .subscribeOn(Schedulers.newThread())
+                .map(LoadDataListResponse::getContent);
     }
 
     @Override
-    public Observable<List<Store>> getStores(int categoryKey) {
-        HashMap<String, Integer> request = new HashMap<>();
-        request.put("category_key", categoryKey);
+    public Observable<List<Store>> getStoreList(StoreListRequest request) {
 
         return RetrofitClient.getClient().create(RetrofitApi.class)
-                .getStores(request)
-                .subscribeOn(Schedulers.newThread());
+                .getStoreList(request)
+                .subscribeOn(Schedulers.newThread())
+                .map(LoadDataListResponse::getContent);
     }
 
     @Override
-    public Observable<Store> getStore(int storeKey) {
-        HashMap<String, Integer> request = new HashMap<>();
-        request.put("store_key", storeKey);
+    public Observable<Store> getStore(StoreDetailRequest request) {
 
         return RetrofitClient.getClient().create(RetrofitApi.class)
                 .getStore(request)
-                .subscribeOn(Schedulers.newThread());
+                .subscribeOn(Schedulers.newThread())
+                .map(LoadDataResponse::getContent);
     }
 }
