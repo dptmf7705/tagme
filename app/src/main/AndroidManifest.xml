@@ -13,6 +13,9 @@
     <!-- GPS 퍼미션 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 와이파이 퍼미션-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -46,7 +49,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.launch.LoginActivity"/>
-        <activity android:name=".view.main.MainActivity" />
+        <activity android:name=".view.main.MainActivity" >
+
+        </activity>
         <activity android:name=".view.launch.JoinActivity"/>
         <activity android:name=".view.store.storeDetail.StoreDetailActivity"/>
 

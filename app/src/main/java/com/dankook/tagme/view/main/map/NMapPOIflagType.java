@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.kangmingu.spot.naverApi;
+package com.dankook.tagme.view.main.map;
 
 /**
  * Wrapper class representing POI flag types on map view.

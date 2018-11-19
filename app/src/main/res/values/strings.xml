@@ -2,7 +2,7 @@
     <string name="join"><u>회원가입</u></string>
     <string name="app_name">태그미</string>
     <string name="app_name_eng">tagme</string>
-
+    <string name="str_done">완료</string>
     <string-array name="list_filter_mode">
         <item>거리순</item>
         <item>평점순</item>
