@@ -4,16 +4,23 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.dankook.tagme.data.remote.LoadDataListResponse;
+import com.dankook.tagme.data.remote.RetrofitApi;
+import com.dankook.tagme.data.remote.RetrofitClient;
+import com.dankook.tagme.data.remote.StoreAddrRequest;
+import com.dankook.tagme.model.Store;
 import com.dankook.tagme.view.BaseFragment;
 import com.dankook.tagme.R;
 import com.dankook.tagme.databinding.FragmentMapBinding;
@@ -21,16 +28,24 @@ import com.nhn.android.maps.NMapCompassManager;
 import com.nhn.android.maps.NMapContext;
 import com.nhn.android.maps.NMapController;
 import com.nhn.android.maps.NMapLocationManager;
-import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.overlay.NMapPOIdata;
-import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapMyLocationOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 
-public class NMapFragment extends BaseFragment<FragmentMapBinding>{
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class NMapFragment extends BaseFragment<FragmentMapBinding> {
+
+    private final long LOCATION_UPDATE_MIN_TIME = Long.MAX_VALUE;
+    private final float LOCATION_UPDATE_MIN_DISTANCE = 5;
     private static final String CLIENT_ID = "ASIW6dcG016kEqZHnNIJ";// 애플리케이션 클라이언트 아이디 값
     private static final int MY_PERMISSION_REQUEST_LOCATION = 1000;
     private NMapContext mMapContext;
@@ -46,11 +61,15 @@ public class NMapFragment extends BaseFragment<FragmentMapBinding>{
                 @Override
                 public boolean onLocationChanged(NMapLocationManager locationManager, NGeoPoint myLocation) {
                     if (mMapController != null) {
-                        mMapController.animateTo(myLocation);//지도 중심을 현재 위치로 이동
-                        Toast.makeText(getContext(), "chenged", Toast.LENGTH_SHORT).show();
+
+                        //mMapController.animateTo(myLocation);//지도 중심을 현재 위치로 이동
+                        mMapController.setMapCenter(myLocation);
+                        mMapController.setZoomLevel(6);
+                        findStoreAddr(myLocation);
                     }
                     return true;
                 }
+
                 //정해진 시간 내에 위치 탐색 실패 시 호출
                 @Override
                 public void onLocationUpdateTimeout(NMapLocationManager locationManager) {
@@ -72,10 +91,10 @@ public class NMapFragment extends BaseFragment<FragmentMapBinding>{
         super.onCreate(savedInstanceState);
         mMapContext =  new NMapContext(super.getActivity());
         mMapLocationManager = new NMapLocationManager(super.getActivity());
+        mMapLocationManager.setUpdateFrequency(LOCATION_UPDATE_MIN_TIME, LOCATION_UPDATE_MIN_DISTANCE);
         mMapContext.onCreate();
         mMapViewerResourceProvider = new NMapViewerResourceProvider(getActivity());
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -86,10 +105,11 @@ public class NMapFragment extends BaseFragment<FragmentMapBinding>{
         mMapController = binding.nMapView.getMapController();
         mMapCompassManager = new NMapCompassManager(getActivity());
         binding.nmpaframgmentFabGps.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 checkPermission();
+//                if(curLocation != null)
+//                    drawMarker(curLocation);
             }
         });
         mMapLocationManager.setOnLocationChangeListener(onMyLocationChangeListener);
@@ -102,7 +122,6 @@ public class NMapFragment extends BaseFragment<FragmentMapBinding>{
         mOverlayManager = new NMapOverlayManager(getActivity(), binding.nMapView, mMapViewerResourceProvider);
         mMapMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
         binding.nMapView.setBuiltInZoomControls(true, null); // 줌 인/아웃 버튼 생성
-        //testOverlayMaker();
     }
 
     @Override
@@ -186,41 +205,64 @@ public class NMapFragment extends BaseFragment<FragmentMapBinding>{
             startMyLocation();
         }
     }
-    private void testOverlayMaker() { //오버레이 아이템 추가 함수
-
-        int markerId = NMapPOIflagType.PIN; //마커 id설정
-        // POI 아이템 관리 클래스 생성(전체 아이템 수, NMapResourceProvider 상속 클래스)
-        NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
-        poiData.beginPOIdata(2); // POI 아이템 추가 시작
-
-//        item1.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW); //마커 선택 시 표시되는 말풍선의 오른쪽 아이콘을 설정한다.
-//        item1.setRightButton(true); //마커 선택 시 표시되는 말풍선의 오른쪽 버튼을 설정한다.
 
 
-        poiData.addPOIitem(126.975967, 37.573841 , "Sejongro Park(세종로공원)", markerId, 0);
-        poiData.endPOIdata(); // POI 아이템 추가 종료
-        //POI data overlay 객체 생성(여러 개의 오버레이 아이템을 포함할 수 있는 오버레이 클래스)
-        NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
-        poiDataOverlay.showAllPOIdata(13); //모든 POI 데이터를 화면에 표시(zomLevel)
-        //POI 아이템이 선택 상태 변경 시 호출되는 콜백 인터페이스 설정
-        poiDataOverlay.setOnStateChangeListener(new NMapPOIdataOverlay.OnStateChangeListener() {
+    private void findStoreAddr(NGeoPoint myLocation) {
+
+        Geocoder geocoder = new Geocoder(getContext(), Locale.KOREA);
+        List<Address> address;
+        String throughFare;
+        StoreAddrRequest myThroughFare = new StoreAddrRequest();
+        Log.d("addr",""+ myLocation.latitude + " "+ myLocation.longitude);
+        try {
+            address = geocoder.getFromLocation(myLocation.latitude, myLocation.longitude,1);
+            throughFare = address.get(0).getThoroughfare();
+            throughFare = throughFare.substring(0, throughFare.length()-1);
+            myThroughFare.setStoreAddr(throughFare);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        RetrofitApi request = RetrofitClient.getClient().create(RetrofitApi.class);
+        Call<LoadDataListResponse<Store>> call = request.getStoreAddr(myThroughFare);
+
+        call.enqueue(new Callback<LoadDataListResponse<Store>>() {
             @Override
-            public void onFocusChanged(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
-
+            public void onResponse(Call<LoadDataListResponse<Store>> call, Response<LoadDataListResponse<Store>> response) {
+                LoadDataListResponse<Store> dataList = response.body();
+                drawMarker(dataList);
             }
+
             @Override
-            public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
-//                ((MainActivity)getActivity()).gotoDetail(DetailFragment.newInstance("파라1",nMapPOIitem.getTitle()));
+            public void onFailure(Call<LoadDataListResponse<Store>> call, Throwable t) {
+
             }
         });
+    }
+
+    private void drawMarker(LoadDataListResponse<Store> storeList){
+        Geocoder coder = new Geocoder(getContext());
+        NMapPOIdata poiData = new NMapPOIdata(storeList.getContent().size(), mMapViewerResourceProvider);
+        poiData.beginPOIdata(storeList.getContent().size());
+        for(int i = 0; i < storeList.getContent().size(); i++){
+            try {
+                int markerId = NMapPOIflagType.PIN;
+                List<Address> address = coder.getFromLocationName(storeList.getContent().get(i).getStoreAddress(), 1);
+                poiData.addPOIitem(address.get(0).getLongitude(), address.get(0).getLatitude(), storeList.getContent().get(i).getStoreName(), markerId, i);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        poiData.endPOIdata();
+        NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+        poiDataOverlay.showAllPOIdata(0);
     }
 
     private void startMyLocation() {
         if (mMapLocationManager.isMyLocationEnabled()) { //현재 위치를 탐색 중인지 확인
             if (!binding.nMapView.isAutoRotateEnabled()) { //지도 회전기능 활성화 상태 여부 확인
-                mMapMyLocationOverlay.setCompassHeadingVisible(true); //나침반 각도 표시
+                //mMapMyLocationOverlay.setCompassHeadingVisible(true); //나침반 각도 표시
                 mMapCompassManager.enableCompass(); //나침반 모니터링 시작
-                binding.nMapView.setAutoRotateEnabled(true, false); //지도 회전기능 활성화
+                //binding.nMapView.setAutoRotateEnabled(true, false); //지도 회전기능 활성화
             }
             binding.nMapView.invalidate();
         } else { //현재 위치를 탐색 중이 아니면

@@ -46,4 +46,8 @@ public interface RetrofitApi {
     // 가게 상세정보 조회
     @POST("store/selectStore")
     Observable<LoadDataResponse<Store>> getStore(@Body StoreDetailRequest request);
+
+    // 가게 주소 조회 - 좌표 찍기 위해
+    @POST("store/selectStoreAddr")
+    Call<LoadDataListResponse<Store>> getStoreAddr(@Body StoreAddrRequest request);
 }

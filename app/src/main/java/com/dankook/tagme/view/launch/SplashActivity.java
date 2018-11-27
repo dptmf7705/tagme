@@ -26,7 +26,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         handleDeepLink();
     }
 
@@ -72,5 +71,4 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                 })
                 .addOnFailureListener(this, error -> Log.d(TAG, "get Dynamic Link Fail"));
     }
-
 }
