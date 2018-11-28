@@ -50,4 +50,21 @@ public interface RetrofitApi {
     // 가게 주소 조회 - 좌표 찍기 위해
     @POST("store/selectStoreAddr")
     Call<LoadDataListResponse<Store>> getStoreAddr(@Body StoreAddrRequest request);
+
+    // 주문하기
+    @POST("order/insertOrder")
+    Observable<LoadDataResponse<Integer>> insertOrder(@Body InsertOrderRequest request);
+
+    // 전체 주문 조회
+    @POST("order/selectOrderAll")
+    Observable<LoadDataResponse<Integer>> selectOrderAll(@Body InsertOrderRequest request);
+
+    // 주문 카운트
+    @POST("order/countOrderList")
+    Observable<LoadDataResponse<Integer>> countOrderList(@Body InsertOrderRequest request);
+
+    // 테이블별 주문 조회
+    @POST("order/selectOrderList")
+    Observable<LoadDataResponse<Integer>> selectOrderList(@Body InsertOrderRequest request);
+
 }

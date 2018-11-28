@@ -3,8 +3,10 @@ package com.dankook.tagme.view.store.storeDetail;
 import android.annotation.SuppressLint;
 import android.databinding.ObservableBoolean;
 
+import com.dankook.tagme.data.remote.InsertOrderRequest;
 import com.dankook.tagme.data.source.store.StoreRepository;
 import com.dankook.tagme.mapper.RequestMapper;
+import com.dankook.tagme.model.Image;
 import com.dankook.tagme.model.Menu;
 import com.dankook.tagme.view.adapter.BaseAdapterContract;
 
@@ -16,7 +18,7 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
 
     private StoreDetailContract.View view;
     private BaseAdapterContract.View adapterView;
-    private BaseAdapterContract.Model<Menu> adapterModel;
+    private BaseAdapterContract.Model<Image> adapterModel;
     private StoreRepository repository;
 
     private final int storeKey;
@@ -39,7 +41,7 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
     }
 
     @Override
-    public void setAdapterModel(BaseAdapterContract.Model<Menu> adapterModel) {
+    public void setAdapterModel(BaseAdapterContract.Model<Image> adapterModel) {
         this.adapterModel = adapterModel;
     }
 
@@ -51,8 +53,19 @@ public class StoreDetailPresenter implements StoreDetailContract.Presenter{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(store -> {
                     view.onStoreDetailDataLoaded(store);
-                    adapterModel.addItems(store.getMenuList());
+                    adapterModel.addItems(store.getImageList());
                 }, error -> {});
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void submitOrder(InsertOrderRequest request) {
+
+        repository.insertOrder(request)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(orderKey -> {
+                    view.makeToast("주문이 완료되었습니다.");
+                });
     }
 
     @Override

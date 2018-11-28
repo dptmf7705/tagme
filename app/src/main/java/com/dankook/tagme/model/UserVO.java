@@ -10,6 +10,17 @@ public class UserVO {
     @SerializedName("user_phone") private String usrPhone;
     @SerializedName("user_address") private String usrAddr;
 
+    public UserVO() {
+    }
+
+    public UserVO(int usrKey, String usrId, String usrName, String usrAddr, String usrPhone) {
+        this.usrKey = usrKey;
+        this.usrId = usrId;
+        this.usrName = usrName;
+        this.usrAddr = usrAddr;
+        this.usrPhone = usrPhone;
+    }
+
     public void setUsrkey(int usrKey) {
         this.usrKey = usrKey;
     }

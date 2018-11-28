@@ -4,10 +4,16 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ScrollView;
 
 import com.dankook.tagme.R;
 import com.dankook.tagme.data.source.store.StoreRepository;
@@ -40,13 +46,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
         initView();
     }
 
-    @SuppressLint("CheckResult")
+    @SuppressLint({"CheckResult", "ClickableViewAccessibility"})
     private void initView() {
-
-        // 툴바 생성
-        binding.layoutToolbar.btnLeft.setImageResource(R.drawable.icon_menu);
-        binding.layoutToolbar.btnLeft.setOnClickListener(v -> toggleDrawerMenu());
-        binding.layoutToolbar.btnRight.setImageResource(R.drawable.icon_search);
 
         // 맵뷰 생성
         NMapFragment fragment = new NMapFragment();
@@ -60,17 +61,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
         binding.viewPagerStoreList.setAdapter(adapter);
         binding.viewPagerStoreList.setCurrentItem(0);
 
+        // 하단에 터치 이벤트 전달안함
+        ViewCompat.setNestedScrollingEnabled(binding.viewPagerStoreList, true);
+
         // 탭 생성
         binding.tabStoreType.setupWithViewPager(binding.viewPagerStoreList);
         // 카테고리 리스트 서버에서 받아오기
         StoreRepository.getInstance().getCategoryList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                            Category category = new Category();
-                            category.setCategoryKey(0);
-                            category.setCategoryName("all");
-                            category.setCategoryNameKor("전체");
-                            response.add(0, category);
 
                             categoryList = response;
 
@@ -83,6 +82,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
                                     binding.tabStoreType.getTabAt(i).setText(categoryList.get(i).getCategoryNameKor());
                                 }
                             }
+
                         },
                         error -> Log.d("getCategory", "error"));
 

@@ -14,6 +14,8 @@ import com.dankook.tagme.utils.SnackBarUtil;
 
 public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatActivity {
 
+    protected final String TAG = getClass().getSimpleName();
+
     protected B binding;
 
     protected abstract int getLayoutId();

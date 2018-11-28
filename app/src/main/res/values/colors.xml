@@ -7,12 +7,16 @@
     <color name="underbarColor">#d8d8d8</color>
     <color name="colorGray">#dcdcdc</color>
     <color name="colorMainBlue">#406890</color>
-    <color name="colorLightBlue">#e0eefa</color>
+    <color name="colorLightBlue">#6F9BC6</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorTransWhite">#f0f8f8f8</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorTransBlack">#dc000000</color>
     <color name="colorLightBlack">#7a7a7a</color>
     <color name="colorBackgroundGray">#F2F2F2</color>
     <color name="colorDividerGray">#E0E0E0</color>
     <color name="colorShadow">#781e1e1e</color>
     <color name="colorTransGray">#b87f7f7f</color>
+    <color name="colorDivider">#f2f2f2</color>
+    <color name="transImage">#a4585858</color>
 </resources>

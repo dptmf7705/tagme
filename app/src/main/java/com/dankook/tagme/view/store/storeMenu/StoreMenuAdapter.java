@@ -1,4 +1,4 @@
-package com.dankook.tagme.view.store.storeDetail;
+package com.dankook.tagme.view.store.storeMenu;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;

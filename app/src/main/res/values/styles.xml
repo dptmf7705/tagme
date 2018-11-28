@@ -6,6 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/underbarColor</item>
+        <item name="android:screenOrientation">portrait</item>
+    </style>
+
+    <!-- dialog theme. -->
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:screenOrientation">portrait</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <!-- Image 스타일 -->

@@ -1,5 +1,6 @@
 package com.dankook.tagme.view.store.storeList;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.dankook.tagme.R;
@@ -77,12 +79,17 @@ public class StoreListFragment extends BaseFragment<FragmentStoreListBinding> im
         presenter.onViewCreated();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initView() {
+
         // 가게 목록 리사이클러뷰 생성
         binding.recyclerStoreList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         binding.recyclerStoreList.setAdapter(adapter);
-        binding.recyclerStoreList.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
         binding.recyclerStoreList.setItemViewCacheSize(35);
+
+        // 하단에 터치 이벤트 전달안함
+        binding.swipeLayout.setNestedScrollingEnabled(true);
+        binding.recyclerStoreList.setNestedScrollingEnabled(true);
 
         // 최하단 스크롤 감지
         binding.recyclerStoreList.setOnScrollListener(new RecyclerView.OnScrollListener(){

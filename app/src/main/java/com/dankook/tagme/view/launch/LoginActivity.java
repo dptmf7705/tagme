@@ -2,6 +2,7 @@ package com.dankook.tagme.view.launch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,10 @@ import com.dankook.tagme.R;
 import com.dankook.tagme.data.remote.LoginRequest;
 import com.dankook.tagme.data.remote.RetrofitApi;
 import com.dankook.tagme.data.remote.RetrofitClient;
+import com.dankook.tagme.data.source.user.UserRepository;
 import com.dankook.tagme.databinding.ActivityLoginBinding;
+import com.dankook.tagme.model.UserVO;
+import com.dankook.tagme.utils.Constant;
 import com.dankook.tagme.view.BaseActivity;
 import com.dankook.tagme.view.main.MainActivity;
 import com.dankook.tagme.model.LoginVO;
@@ -75,7 +79,20 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding>{
 
                         if(loginUser != null){
                             if(loginUser.getResult() == LOGIN_SUCCESS){
-                                //TODO 로그인 유저 정보 유지하기
+                                //로그인 유저 정보 유지하기
+                                UserVO user = loginUser.getUVO();
+                                SharedPreferences prefLogin = getSharedPreferences(Constant.PREFERENCE_USER, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = prefLogin.edit();
+                                editor.putBoolean(Constant.PREFERENCE_USER_LOGIN, true);
+                                editor.putInt(Constant.PREFERENCE_USER_KEY, user.getUsrkey());
+                                editor.putString(Constant.PREFERENCE_USER_ID, user.getUsrId());
+                                editor.putString(Constant.PREFERENCE_USER_NAME, user.getUsrName());
+                                editor.putString(Constant.PREFERENCE_USER_ADDRESS, user.getUsrAddr());
+                                editor.putString(Constant.PREFERENCE_USER_PHONE, user.getUsrPhone());
+                                editor.apply();
+
+                                UserRepository.getInstance().setLoginUser(loginUser.getUVO());
+
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();

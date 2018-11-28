@@ -1,5 +1,6 @@
 package com.dankook.tagme.data.source.store;
 
+import com.dankook.tagme.data.remote.InsertOrderRequest;
 import com.dankook.tagme.data.remote.LoadDataListResponse;
 import com.dankook.tagme.data.remote.LoadDataResponse;
 import com.dankook.tagme.data.remote.RetrofitApi;
@@ -15,6 +16,7 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class StoreRemoteDataSource implements StoreDataSource {
+    
     private static StoreRemoteDataSource storeRemoteDataSource;
 
     private StoreRemoteDataSource(){}
@@ -48,6 +50,15 @@ public class StoreRemoteDataSource implements StoreDataSource {
 
         return RetrofitClient.getClient().create(RetrofitApi.class)
                 .getStore(request)
+                .subscribeOn(Schedulers.newThread())
+                .map(LoadDataResponse::getContent);
+    }
+
+    @Override
+    public Observable<Integer> insertOrder(InsertOrderRequest request) {
+
+        return RetrofitClient.getClient().create(RetrofitApi.class)
+                .insertOrder(request)
                 .subscribeOn(Schedulers.newThread())
                 .map(LoadDataResponse::getContent);
     }

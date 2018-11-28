@@ -1,44 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="activity"
+            type="com.dankook.tagme.view.store.storeDetail.StoreDetailActivity"/>
+        <variable
+            name="store"
+            type="com.dankook.tagme.model.Store"/>
+        <variable
+            name="menu"
+            type="com.dankook.tagme.model.Menu"/>
+    </data>
 
     <android.support.design.widget.CoordinatorLayout
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:contentScrim="@color/colorMainBlue"
+                app:contentScrim="@color/colorWhite"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <ImageView
-                    android:id="@+id/iv_appbar_main"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_store_image"
+                    app:layout_collapseMode="parallax"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_collapseMode="parallax"/>
-
-                <include
-                    android:id="@+id/toolbar"
-                    app:layout_collapseMode="pin"
-                    android:layout_gravity="top"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    layout="@layout/layout_toolbar"/>
+                    android:layout_height="200dp"/>
 
             </android.support.design.widget.CollapsingToolbarLayout>
+
+            <include
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll"
+                bind:item="@{store}"
+                layout="@layout/layout_store_detail"/>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/store_tab_height"
+                android:layout_gravity="bottom"
+                app:tabPadding="0dp"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:tabIndicatorHeight="0dp"
+                app:tabTextColor="@color/colorLightBlack"
+                app:tabSelectedTextColor="@color/colorBlack"
+                app:tabBackground="@drawable/store_tab_selector"/>
+
         </android.support.design.widget.AppBarLayout>
 
-        <include
-            android:id="@+id/content"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            layout="@layout/layout_store_detail"/>
+            android:background="@null"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+        <RelativeLayout
+            style="@style/Base.Widget.Design.AppBarLayout"
+            android:id="@+id/dark_panel"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorTransBlack"/>
+
+        <LinearLayout
+            style="@style/Base.Widget.Design.AppBarLayout"
+            android:id="@+id/bottom_sheet"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_hideable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_top"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:background="@drawable/border_bottom"
+                android:padding="@dimen/padding_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="주문하기"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_size_large"/>
+
+                <ImageButton
+                    android:id="@+id/btn_close"
+                    android:padding="6dp"
+                    style="@style/largeImageButton"
+                    android:onClick="@{(v) -> activity.closeBottomSheet()}"
+                    android:src="@drawable/icon_cancel"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_margin="@dimen/padding_main"
+                android:layout_gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="152dp"
+                imageCenterCrop="@{menu.imageStoredPath}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_main"
+                android:text="@{menu.menuName}"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_size_medium"
+                    price="@{menu.menuPrice}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_size_medium"
+                    android:text="원"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="@dimen/padding_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_size_main"
+                    android:text="수량"/>
+
+                <ImageButton
+                    android:padding="@dimen/padding_small"
+                    android:layout_height="@dimen/button_size_ultra_large"
+                    android:layout_width="@dimen/button_size_ultra_large"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_minus"
+                    android:onClick="@{v -> activity.plusAmount(false, menu.menuPrice)}"
+                    android:background="@drawable/border_round_box"/>
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="@dimen/profile_image_size_main"
+                    android:layout_height="@dimen/button_size_ultra_large"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(safeUnbox(activity.amount))}"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_size_main"
+                    android:background="@drawable/border_round_box"/>
+
+                <ImageButton
+                    android:padding="@dimen/padding_small"
+                    android:layout_height="@dimen/button_size_ultra_large"
+                    android:layout_width="@dimen/button_size_ultra_large"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_plus"
+                    android:onClick="@{v -> activity.plusAmount(true, menu.menuPrice)}"
+                    android:background="@drawable/border_round_box"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/padding_main"
+                android:layout_marginRight="@dimen/padding_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_size_main"
+                    android:text="주문금액"/>
+
+                <TextView
+                    android:id="@+id/tv_total_price"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_size_large"
+                    price="@{activity.totalPrice}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_size_large"
+                    android:text="원"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_margin="@dimen/padding_main"
+                android:id="@+id/btn_order"
+                android:padding="@dimen/padding_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/border_round_button"
+                android:textSize="@dimen/text_size_main"
+                android:textColor="@color/colorBlack"
+                android:onClick="@{v -> activity.submitOrder(menu.menuKey)}"
+                android:text="주문하기"/>
+
+        </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

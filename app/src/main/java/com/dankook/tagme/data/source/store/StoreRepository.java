@@ -1,5 +1,6 @@
 package com.dankook.tagme.data.source.store;
 
+import com.dankook.tagme.data.remote.InsertOrderRequest;
 import com.dankook.tagme.data.remote.StoreDetailRequest;
 import com.dankook.tagme.data.remote.StoreListRequest;
 import com.dankook.tagme.model.Category;
@@ -61,7 +62,13 @@ public class StoreRepository implements StoreDataSource {
     @Override
     public Observable<Store> getStore(StoreDetailRequest request) {
 
+        // 아닌경우 서버에 다시 요청
         return remoteDataSource.getStore(request);
     }
 
+    @Override
+    public Observable<Integer> insertOrder(InsertOrderRequest request) {
+
+        return remoteDataSource.insertOrder(request);
+    }
 }

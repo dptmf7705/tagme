@@ -10,14 +10,14 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         refreshing="@{presenter.isLoading}">
 
         <com.dankook.tagme.utils.EmptyRecyclerView
             android:id="@+id/recycler_store_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite"/>
+            android:layout_height="wrap_content"
+            android:background="@color/colorDivider"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

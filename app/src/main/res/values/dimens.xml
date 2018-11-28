@@ -9,6 +9,8 @@
     <dimen name="text_size_ultra_large">24sp</dimen>
 
     <!-- padding -->
+    <dimen name="padding_ultra_large">24dp</dimen>
+    <dimen name="padding_large">20dp</dimen>
     <dimen name="padding_main">16dp</dimen>
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_ultra_small">4dp</dimen>
@@ -19,8 +21,15 @@
     <dimen name="button_size_ultra_large">32dp</dimen>
     <dimen name="button_size_small">16dp</dimen>
 
-    <!-- image size -->
-    <dimen name="store_image_width">68dp</dimen>
+    <!-- profile image -->
+    <dimen name="profile_image_size_ultra_small">32dp</dimen>
+    <dimen name="profile_image_size_small">40dp</dimen>
+    <dimen name="profile_image_size_main">48dp</dimen>
+    <dimen name="profile_image_size_large">56dp</dimen>
+    <dimen name="profile_image_size_ultra_large">64dp</dimen>
+
+    <!-- store image size -->
+    <dimen name="store_image_width">72dp</dimen>
     <dimen name="store_image_height">52dp</dimen>
 
     <!-- drawer menu -->
@@ -29,8 +38,10 @@
     <dimen name="drawer_grid_menu_size">120dp</dimen>
 
     <!-- tab -->
-    <dimen name="tab_layout_size">40dp</dimen>
+    <dimen name="tab_layout_size">36dp</dimen>
     <dimen name="tab_divider_size">2dp</dimen>
+
+    <dimen name="store_tab_height">48dp</dimen>
 
     <!-- map layout size -->
     <dimen name="map_layout_size">320dp</dimen>
